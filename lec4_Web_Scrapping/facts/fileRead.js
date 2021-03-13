@@ -3,13 +3,14 @@ const cheerio = require("cheerio");
 
 
 let htmlKaData = fs.readFileSync("./index.html");
+//console.log(htmlKaData);
 // htmlKaData => html treat to
 
 let ch = cheerio.load(htmlKaData);
 
-// console.log(ch);
+//console.log(ch);
 
-let pTags = ch("p");
+let pTags = ch("p:first").text();
 console.log(pTags);
 
 
