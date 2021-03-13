@@ -23,7 +23,7 @@ function parseData(html){
     let bothBowlingTables = ch('.Collapsible .table.bowler');
     //{ '0': {}, '1': {} }
 
-    for(int i=0;i<bothBowlingTables.length;i++){
+    for(let i=0;i<bothBowlingTables.length;i++){
         let bowlingTable = bothBowlingTables[`${i}`];
         let allTrs = ch(bowlingTable).find("tbody tr");
         // { 0:tr, 1:tr}
