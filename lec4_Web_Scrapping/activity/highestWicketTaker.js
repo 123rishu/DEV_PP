@@ -10,7 +10,7 @@ let highestWicketTaker = {};
 
 request("https://www.espncricinfo.com/series/ipl-2020-21-1210595/kolkata-knight-riders-vs-rajasthan-royals-54th-match-1216530/full-scorecard" , cb);
 
-function cb(error, respons, data){
+function cb(error, response, data){
     parseData(data);
 }
 
