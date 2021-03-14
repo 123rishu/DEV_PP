@@ -17,7 +17,7 @@ function parseData(html){
     // cheerio highly jquery
     let ch = cheerio.load(html);
     let aTag = ch('.widget-items.cta-link a');
-    // console.log(aTag.attr("href"));
+    //console.log(aTag.attr("href"));
     let link = aTag['0']["attribs"]["href"];
     let completeLink = "https://www.espncricinfo.com"+link;
     // console.log(completeLink);
