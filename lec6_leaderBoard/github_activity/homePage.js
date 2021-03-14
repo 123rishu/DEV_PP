@@ -15,35 +15,33 @@ function cb(error , response , data){
 function parseData(html){
     // cheerio highly jquery
     let ch = cheerio.load(html);
-    let aTags = ch('.no-underline.d-flex.flex-column.flex-justify-center ');
+    let pTags = ch('.f3.lh-condensed.text-center.Link--primary.mb-0.mt-1');
+    let aTags = ch('.no-underline.d-flex.flex-column.flex-justify-center');
+    //console.log(aTags);
     //console.log(aTag.attr("href"));
-    let linkOneText = ch(aTags['0']).text();
-    let linkTwoText = ch(aTags['1']).text();
-    let linkThreeText = ch(aTags['2']).text();
-    console.log(linkOneText, linkTwoText, linkThreeText);
-    let firstFolderPath = `./${linkOneText}`;
-    let secFolderPath = `./${linkTwoText}`;
-    let thirdFolderPath = `./${linkThreeText}`;
+    //  let linkOneText = ch(pTags['0']).text();
+    //  let linkTwoText = ch(pTags['1']).text();
+    //  let linkThreeText = ch(pTags['2']).text();
+    //  console.log(linkOneText, linkTwoText, linkThreeText);
+    // let firstFolderPath = `./${linkOneText}`;
+    // let secFolderPath = `./${linkTwoText}`;
+    // let thirdFolderPath = `./${linkThreeText}`;
     // fs.mkdirSync(firstFolderPath);
     // fs.mkdirSync(secFolderPath);
     // fs.mkdirSync(thirdFolderPath);
 
-    // for(let i=0;i<aTags.length;i++){
+     for(let i=0;i<aTags.length;i++){
 
-    //     let aTag = aTags[i+""];
-    //     let link = 
-    //     let linkText = ch(aTag).text();
-    //     let folderPath = `./${linkText}`;
-    //     fs.mkdirSync(folderPath);
+         let aTagCur = aTags[i+""];
+         let link = ch(aTagCur).attr("href");
+         console.log(link);
+         let pTag = pTags[i+""];
+         let pTagCurText = ch(pTag).text();
+         //console.log(pTagCurText)
+         //let folderPath = `./${pTagCurText}`;
+         //fs.mkdirSync(folderPath);
 
-        
-
-
-
-
-
-
-    // }
+     }
 
 
 
@@ -58,15 +56,3 @@ function parseData(html){
     // console.log(completeLink);
     //getAllMatches(completeLink);
 }
-
-
-
-
-
-
-
-
-
-
-
-
