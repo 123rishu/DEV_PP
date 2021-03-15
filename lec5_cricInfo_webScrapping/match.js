@@ -90,13 +90,11 @@ function createBatsmanFile(teamName , batsmanName , runs , balls , fours , sixes
     let stringifiedData = JSON.stringify(batsmanFile); // [object] => [ {}]
     fs.writeFileSync(batsmanPath , stringifiedData  );
 }
+
 function createTeamFolder(teamName){
     let teamPath = `./IPL/${teamName}`;
     fs.mkdirSync(teamPath);
 }
-
-
-
 
 function processBatsman(teamName , batsmanName , runs , balls , fours , sixes , strikeRate){
     let isTeam = checkTeamFolder(teamName);

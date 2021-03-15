@@ -12,8 +12,6 @@ function getMatch(link) {
   request(link, cb);
 }
 
-
-
 // request("https://www.espncricinfo.com/series/ipl-2020-21-1210595/delhi-capitals-vs-mumbai-indians-final-1237181/full-scorecard" , cb);
 
 function cb(error, response, data) {

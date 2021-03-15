@@ -1,6 +1,8 @@
 const request = require("request")
 const cheerio = require("cheerio");
 const fs = require("fs");
+const path = require("path");
+const getTopFiveProjectLink = require("./topFiveProjects");
 
 
 //let path = https://github.com/topics;
@@ -17,18 +19,7 @@ function parseData(html){
     let ch = cheerio.load(html);
     let pTags = ch('.f3.lh-condensed.text-center.Link--primary.mb-0.mt-1');
     let aTags = ch('.no-underline.d-flex.flex-column.flex-justify-center');
-    //console.log(aTags);
-    //console.log(aTag.attr("href"));
-    //  let linkOneText = ch(pTags['0']).text();
-    //  let linkTwoText = ch(pTags['1']).text();
-    //  let linkThreeText = ch(pTags['2']).text();
-    //  console.log(linkOneText, linkTwoText, linkThreeText);
-    // let firstFolderPath = `./${linkOneText}`;
-    // let secFolderPath = `./${linkTwoText}`;
-    // let thirdFolderPath = `./${linkThreeText}`;
-    // fs.mkdirSync(firstFolderPath);
-    // fs.mkdirSync(secFolderPath);
-    // fs.mkdirSync(thirdFolderPath);
+    
 
      for(let i=0;i<aTags.length;i++){
 
@@ -37,22 +28,14 @@ function parseData(html){
          console.log(link);
          let pTag = pTags[i+""];
          let pTagCurText = ch(pTag).text();
-         //console.log(pTagCurText)
-         //let folderPath = `./${pTagCurText}`;
+         pTagCurText = pTagCurText.toLowerCase();
+         pTagCurText = pTagCurText.replace(/(\r\n|\n|\r)/gm,"");
+        //console.log(pTagCurText);
+         let folderPath = `./github/${pTagCurText}`;
          //fs.mkdirSync(folderPath);
+         let completeLink = "https://github.com" + link;
+         getTopFiveProjectLink(completeLink);
 
      }
 
-
-
-
-
-
-
-    //console.log(aTag);
-    //aTag = aTag.split("\n\r");
-    //console.log(aTag);
-    //let completeLink = "https://www.espncricinfo.com"+link;
-    // console.log(completeLink);
-    //getAllMatches(completeLink);
 }
