@@ -33,7 +33,7 @@ function parseData(html){
         curTopicKaNam = curTopicKaNam.replace(/(\r\n|\n|\r)/gm,"");
         curTopicKaNam = curTopicKaNam.trim();
        // console.log(curTopicKaNam);
-        let completeLink = `https://github.com/topics/${curTopicKaNam}${link}`;
+        let completeLink = `https://github.com${link}`;
         //console.log(completeLink);
         let folderPath = `./github/${curTopicKaNam}/${linkKaLastPartText}`;
         //console.log(folderPath);

@@ -18,7 +18,7 @@ function parseData(html){
 
     
     
-    }    
+      
 }
 
 module.exports = getIssues;
