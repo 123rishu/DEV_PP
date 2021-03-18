@@ -2,7 +2,7 @@ const request = require("request")
 const cheerio = require("cheerio");
 const fs = require("fs");
 const path = require("path");
-const getTopFiveProjectLink = require("./topFiveProjects");
+const {getTopFiveProjectLink} = require("./topFiveProjects");
 
 
 //let path = https://github.com/topics;
@@ -35,7 +35,7 @@ function parseData(html){
         //console.log(pTagCurText);
          let folderPath = `./github/${pTagCurText}`;
          //console.log(folderPath);
-         //fs.mkdirSync(folderPath);
+         fs.mkdirSync(folderPath);
          let completeLink = "https://github.com" + link;
          getTopFiveProjectLink(completeLink);
 

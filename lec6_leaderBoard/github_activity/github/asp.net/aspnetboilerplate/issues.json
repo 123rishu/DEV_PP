@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Permissions does not work",
+        "link": "/aspnetboilerplate/aspnetboilerplate/issues/6063"
+    },
+    {
+        "title": "WebhookSend：Incorrect of \"attemptNumber\"",
+        "link": "/aspnetboilerplate/aspnetboilerplate/issues/6061"
+    },
+    {
+        "title": "[Question] Session not available after logging in with an Oauth integration",
+        "link": "/aspnetboilerplate/aspnetboilerplate/issues/6058"
+    },
+    {
+        "title": "Deploy to iis as webapplication not as website",
+        "link": "/aspnetboilerplate/aspnetboilerplate/issues/6053"
+    },
+    {
+        "title": "Deploy to production",
+        "link": "/aspnetboilerplate/aspnetboilerplate/issues/6052"
+    }
+]

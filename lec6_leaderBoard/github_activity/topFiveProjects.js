@@ -32,14 +32,15 @@ function parseData(html){
         curTopicKaNam = curTopicKaNam.toLowerCase();
         curTopicKaNam = curTopicKaNam.replace(/(\r\n|\n|\r)/gm,"");
         curTopicKaNam = curTopicKaNam.trim();
+        //module.exports.curTopicKaNam = curTopicKaNam;
        // console.log(curTopicKaNam);
-        let completeLink = `https://github.com${link}`;
+        let completeLink = `https://github.com${link}/issues`;
         //console.log(completeLink);
         let folderPath = `./github/${curTopicKaNam}/${linkKaLastPartText}`;
         //console.log(folderPath);
-        //fs.mkdirSync(folderPath);
+        fs.mkdirSync(folderPath);
         getIssues(completeLink);
     }    
 }
 
-module.exports = getTopFiveProjectLink;
+module.exports.getTopFiveProjectLink = getTopFiveProjectLink;
