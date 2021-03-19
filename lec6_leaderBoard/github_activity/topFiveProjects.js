@@ -41,7 +41,7 @@ function parseData(html){
         if(!fs.existsSync(folderPath)){
             fs.mkdirSync(folderPath);
         }
-        getIssues(completeLink);
+        getIssues(curTopicKaNam, completeLink);
     }    
 }
 
