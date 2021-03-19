@@ -1,1 +1,22 @@
-[{"title":"Create a web UI decision tree doc","link":"/dotnet/AspNetCore.Docs/issues/21821"},{"title":"Create a web UI universe overview doc","link":"/dotnet/AspNetCore.Docs/issues/21820"},{"title":"Does asp.net core authentication support reference token?","link":"/dotnet/AspNetCore.Docs/issues/21819"},{"title":"Update EF concurrency tokens","link":"/dotnet/AspNetCore.Docs/issues/21817"},{"title":"Wrong translation","link":"/dotnet/AspNetCore.Docs/issues/21813"}]
+[
+    {
+        "title": "Create a web UI decision tree doc",
+        "link": "/dotnet/AspNetCore.Docs/issues/21821"
+    },
+    {
+        "title": "Create a web UI universe overview doc",
+        "link": "/dotnet/AspNetCore.Docs/issues/21820"
+    },
+    {
+        "title": "Does asp.net core authentication support reference token?",
+        "link": "/dotnet/AspNetCore.Docs/issues/21819"
+    },
+    {
+        "title": "Update EF concurrency tokens",
+        "link": "/dotnet/AspNetCore.Docs/issues/21817"
+    },
+    {
+        "title": "Wrong translation",
+        "link": "/dotnet/AspNetCore.Docs/issues/21813"
+    }
+]

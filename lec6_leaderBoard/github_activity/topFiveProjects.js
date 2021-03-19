@@ -38,7 +38,9 @@ function parseData(html){
         //console.log(completeLink);
         let folderPath = `./github/${curTopicKaNam}/${linkKaLastPartText}`;
         //console.log(folderPath);
-        fs.mkdirSync(folderPath);
+        if(!fs.existsSync(folderPath)){
+            fs.mkdirSync(folderPath);
+        }
         getIssues(completeLink);
     }    
 }

@@ -45,6 +45,7 @@ function parseData(html) {
     for (let i = 0; i < 5; i++) {
         let aTag = allATags[i + ""];
         let issueLink = ch(aTag).attr("href");
+        let completeIssueLink = "https://github.com"
         let issueTitle = ch(aTag).text();
 
         if (issueTitle === undefined || issueLink === undefined) {

@@ -35,7 +35,10 @@ function parseData(html){
         //console.log(pTagCurText);
          let folderPath = `./github/${pTagCurText}`;
          //console.log(folderPath);
-         fs.mkdirSync(folderPath);
+         if(!fs.existsSync(folderPath)){
+            fs.mkdirSync(folderPath);
+         }
+         
          let completeLink = "https://github.com" + link;
          getTopFiveProjectLink(completeLink);
 
