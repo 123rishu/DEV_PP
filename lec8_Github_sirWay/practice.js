@@ -1,22 +1,28 @@
-// function decToBin(n) {
-//     // write code here
+function decToBin(n) {
+    // write code here
     
-//     let num = 0;
-//     let pow = 1;
+    let num = 0;
+    let pow = 1;
+    //console.log(n);
     
-//     while(n>0){
-//         let rem = n%2;
-        
-//         num = num + (rem * pow);
-//         pow = pow*10;
-//         n = n/2;
-//     }
-//     return num;
-// }
+    while(n>1){
+        let rem = n%2;
+        console.log(rem);
+        num = num + (rem * pow);
+        //console.log(num);
+        pow = pow*10;
+        //console.log(pow);
+        n = n/2;
+        //console.log(n);
+    }
+    //console.log(num);
+}
 
+decToBin(24);
+//console.log(0.5/2);
 
-// let ans = decToBin(45);
-// console.log(ans);
+let r = 45%2;
+//console.log(r);
 
 
 
