@@ -1,0 +1,21 @@
+//console.log(aTags);
+    //console.log(aTag.attr("href"));
+    //  let linkOneText = ch(pTags['0']).text();
+    //  let linkTwoText = ch(pTags['1']).text();
+    //  let linkThreeText = ch(pTags['2']).text();
+    //  console.log(linkOneText, linkTwoText, linkThreeText);
+    // let firstFolderPath = `./${linkOneText}`;
+    // let secFolderPath = `./${linkTwoText}`;
+    // let thirdFolderPath = `./${linkThreeText}`;
+    // fs.mkdirSync(firstFolderPath);
+    // fs.mkdirSync(secFolderPath);
+    // fs.mkdirSync(thirdFolderPath);
+    //let folderPath = `./github/Javascript`;
+    //fs.mkdirSync(folderPath);
+
+     //console.log(aTag);
+    //aTag = aTag.split("\n\r");
+    //console.log(aTag);
+    //let completeLink = "https://www.espncricinfo.com"+link;
+    // console.log(completeLink);
+    //getAllMatches(completeLink);

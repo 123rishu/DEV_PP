@@ -39,13 +39,18 @@ function createFolder() {
 function sortFolder(folderPath) {
   // get content of folderPath
   let content = fs.readdirSync(folderPath);
+  console.log(content);
   for (let i = 0; i < content.length; i++) {
-    
     // get extension of each file "./Downloads/Misc"
     let isDirectory = fs.lstatSync(`${folderPath}/${content[i]}`).isDirectory();
     if(isDirectory){
-      console.log("It is a folder");
-      sortFolder(`${folderPath}/${content[i]}`); "./Downloads/Audio"
+      //console.log("It is a folder");
+      // "./Downloads/Audio"
+      if((content[i] == 'Audio') || (content[i] == 'Compressed') || (content[i] == 'Documents') || (content[i] == 'Images') || (content[i] == 'Videos')){
+      }
+      else{
+        sortFolder(`${folderPath}/${content[i]}`);
+      }
     }
     else{
       let extensionName = path.extname(content[i]);
