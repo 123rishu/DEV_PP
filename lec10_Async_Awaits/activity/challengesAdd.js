@@ -21,6 +21,7 @@ let challenges = require("./challenges");
     await tab.click('div[data-analytics="NavBarProfileDropDown"]');
     await tab.waitForSelector('a[data-analytics="NavBarProfileDropDownAdministration"]' , {visible:true});
     await tab.click('a[data-analytics="NavBarProfileDropDownAdministration"]');
+    await tab.waitForTimeout(5000);
     await tab.waitForSelector('.nav-tabs.nav.admin-tabbed-nav a' , {visible:true});
     let bothATags = await tab.$$('.nav-tabs.nav.admin-tabbed-nav a');
     let manageATag = bothATags[1];
@@ -41,11 +42,11 @@ let challenges = require("./challenges");
     //or
 
     //add challenges one by one
-    // for(let i=0;i<challenges.length;i++){
-    //     await addChallenge(challenges[i], browser, createChallengeLink);
-    // }
+    for(let i=0;i<challenges.length;i++){
+        await addChallenge(challenges[i], browser, createChallengeLink);
+    }
 
-    await addChallenge(challenges[0], browser, createChallengeLink);
+    //await addChallenge(challenges[0], browser, createChallengeLink);
 })();   
 
 
@@ -54,23 +55,18 @@ async function addChallenge(challenge, browser, createChallengeLink){
     let newTab = await browser.newPage();
     await newTab.goto(createChallengeLink);
     await newTab.waitForSelector('#name', {visible:true});
-    //let x = challenge.Challenge Name;
-    //console.log(challenge[0]);
-    let allTextAreaTags = await newTab.$$('.CodeMirror-code');
-    //let elem = allTextAreaTags[0];
 
-    await newTab.type('.block.span12.profile-input input ', challenge["Challenge Name"]);
+    await newTab.type('#name', challenge["Challenge Name"]);
     await newTab.type('#preview', challenge["Description"]);
-    //await elem.click();
-    //await elem.type(challenge["Problem Statement"]);
-    await newTab.type('.CodeMirror-code', challenge["Problem Statement"]);
-    // await newTab.type('#name', challenge["Input Format"]);
-    // await newTab.type('#name', challenge["Constraints"]);
-    // await newTab.type('#name', challenge["Output Format"]);
-    // await newTab.type('#name', challenge["Tags"]);
+    await newTab.type('#problem_statement-container .CodeMirror textarea', challenge["Problem Statement"]);
+    await newTab.type('#input_format-container .CodeMirror textarea', challenge["Input Format"]);
+    await newTab.type('#constraints-container .CodeMirror textarea', challenge["Constraints"]);
+    await newTab.type('#output_format-container .CodeMirror textarea', challenge["Output Format"]);
+    await newTab.type('#tags_tag', challenge["Tags"]);
+    await newTab.keyboard.press("Enter");
+    await newTab.click('.save-challenge.btn.btn-green');
 
-
-    //newTab.close();
+    newTab.close();
 }
 
 

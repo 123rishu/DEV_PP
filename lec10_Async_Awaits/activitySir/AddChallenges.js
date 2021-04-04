@@ -44,7 +44,7 @@ let challenges = require("./challenges");
 
     // add challenges one by one
     for(let i=0 ; i<challenges.length ; i++){
-        // add a single challenge
+        //add a single challenge
         await addChallenge(challenges[i] , browser , createChallengeLink );
     }
     // await addChallenge(challenges[0] , browser , createChallengeLink);
