@@ -32,7 +32,7 @@ public class construct {
     public static Node construct(Integer[] arr){
         Node root = new Node(arr[0]);
 
-        Stack<Pair> st = new Stack<>();
+        Stack<Pair>st = new Stack<>();
         Pair root_pair = new Pair(root, 1);
         st.push(root_pair);
         int idx = 1;
@@ -56,7 +56,7 @@ public class construct {
                 if(arr[idx] != null){
                     Node rc = new Node(arr[idx]);
                     top.node.right = rc;
-
+                    
                     Pair rcp =new Pair(rc, 1);
                     st.push(rcp);
                 }
@@ -66,17 +66,39 @@ public class construct {
                 st.pop();
             }
         }
-
         return root;
     }
+
+    public static void display(Node node){
+
+        if(node == null){
+            return;
+        }
+
+        String str =  " <- " + node.data + " -> ";
+
+        String left = node.left == null ? "." : "" + node.left.data;
+        String right = node.right == null ? "." : "" + node.right.data;
+
+        str = left + str + right;
+        System.out.println(str);
+
+        display(node.left);
+        display(node.right);
+    }
+
     public static void main(String[] args){
         Integer[]arr = {50,25,12,null,null,37,30,null,null,null,75,62,null,70,null,null,87,null,null};
 
         Node root = construct(arr);
 
-        System.out.println(root.left.data + " -> " + root.data + " <- " + root.right.data);
+        //System.out.println(root.left.data + " -> " + root.data + " <- " + root.right.data);
+        display(root);
+
     }
 }
+
+
 
 
 
