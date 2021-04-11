@@ -1,4 +1,4 @@
-let x = 2;
+ let x = 2;
 let y = 3;
 
 function f1(x, y){
