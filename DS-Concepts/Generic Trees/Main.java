@@ -84,15 +84,15 @@ public class Main {
   static int h;
 
   public static void multiSolver(Node node, int lev){
-	size++;
-	max = Math.max(max,node.data);
-	min = Math.min(min, node.data);
-	h = Math.max(h,lev);
+      size++;
+      max = Math.max(max,node.data);
+      min = Math.min(min, node.data);
+      h = Math.max(h,lev);
 
-	for(int i=0;i<node.children.size();i++){
-		Node child = node.children.get(i);
-		multiSolver(child,lev+1);
-	}
+      for(int i=0;i<node.children.size();i++){
+        Node child = node.children.get(i);
+        multiSolver(child,lev+1);
+      }
   }
 
 

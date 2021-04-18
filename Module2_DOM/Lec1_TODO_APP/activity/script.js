@@ -15,11 +15,12 @@ function addToDo(){
         pTag.classList.add("todo");
         pTag.innerHTML = todo;
         // <p class="todo">Learn HTML !!!</p>
-
-        let deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("delete-task");
-        deleteBtn.innerHTML = "DELETE";
-        // <button class="delete-task">DELETE</button>
+        
+        let deleteBtn = document.createElement("i");
+        deleteBtn.classList.add("fas");
+        deleteBtn.classList.add("fa-minus-circle");
+        deleteBtn.classList.add("icon-large");
+        // <i class="fas fa-minus-circle"></i>
 
         deleteBtn.addEventListener("click", function(event){
             //console.log(event);

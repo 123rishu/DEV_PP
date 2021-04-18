@@ -1,0 +1,125 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.content{
+
+height: 100vh;
+
+background: thistle;
+}
+
+.header{
+
+display: flex;
+
+height: 16%;
+
+width: 100%;
+
+background: #1e3d44;
+
+justify-content: space-evenly;
+
+align-items: center;
+}
+
+.tickets-container{
+    height: 84%;
+}
+
+.ticket-filters{
+
+display: flex;
+
+height: 47%;
+
+width: 24%;
+
+background: #28515c;
+
+border-radius: 9px;
+
+justify-content: space-evenly;
+
+align-items: center;
+}
+
+.filter{
+
+width: 9%;
+
+border-radius: 6px;
+
+height: 36%;
+
+background: teal;
+} 
+
+.red{
+    background: #ff0707 !important;
+}
+.red:hover{
+    background-color: #d30000;
+}
+.blue{
+    background: #008cfc !important;
+}
+.blue:hover{
+    background-color: #005da7;
+}
+.green{
+    background: #00ff15 !important;
+}.green:hover{
+    background-color: #00bb0f;
+}
+.black{
+    background: #191919 !important;
+}
+.black:hover{
+    background-color: #000;
+}
+
+.ticket-actions{
+    display: flex;
+    justify-content: normal;
+    align-items: center;
+    background: #28515c;
+    width: 13%;
+    height: 45%;
+    border-radius: 18px;
+}
+
+.open-modal{
+    width: 50%;
+    height: 100%;
+    background: #28515c;
+    display: flex;
+    align-items: center;
+    border-radius: 18px;
+    justify-content: center;
+}
+.open-modal:hover{
+    background-color: #234750;
+}
+
+.fas{} 
+
+.fa-plus{}
+
+.close-ticket{
+    width: 50%;
+    height: 100%;
+    background: #28515c;
+    display: flex;
+    align-items: center;
+    border-radius: 18px;
+    justify-content: center;
+}
+.close-ticket:hover{
+    background-color: #234750;
+}
+
+.fa-times{}
