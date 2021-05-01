@@ -53,12 +53,13 @@ function toggleTicketFilter(e){
     currTicketHeader.classList.add(filters[idx]);
 
     let allTickets = JSON.parse(localStorage.getItem("allTickets"));
-    let id = currTicketHeader.nextElementSibling.children[0].textContent.split(#)[1];
-    console.log(id);
+    let id = currTicketHeader.nextElementSibling.children[0].textContent.split("#")[1];
+    //console.log(id);
 
     for(let i=0;i<allTickets.length;i++){
         if(allTickets[i].ticketId == id){
             allTickets[i].ticketFilter = filters[idx];
+            break;
         }
     }
 
