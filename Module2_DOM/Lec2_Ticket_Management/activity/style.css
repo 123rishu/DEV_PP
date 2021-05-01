@@ -130,7 +130,7 @@ background: teal;
 
 .fa-plus{}
 
-.close-ticket{
+.close-modal{
     width: 50%;
     height: 100%;
     background: #336773;
@@ -139,7 +139,7 @@ background: teal;
     border-radius: 18px;
     justify-content: center;
 }
-.close-ticket:hover{
+.close-modal:hover{
     background-color: #234750;
 }
 
@@ -205,7 +205,7 @@ background: teal;
 }
 
 .ticket-header{
-    height: 5%;
+    height: 14%;
     width: 100%;
 }
 
@@ -222,4 +222,15 @@ background: teal;
 .active-filter{
     border: 3px solid whitesmoke;
     opacity: 1;
+}
+
+.ticket-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.fa-trash-alt{
+    color: black;
+    margin: 8px;
+    cursor: pointer;
 }

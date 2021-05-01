@@ -1,6 +1,8 @@
 let allFilterTags = document.querySelectorAll(".ticket-filters div");
 let ticketContainer = document.querySelector(".tickets-container");
 let openModalBtn = document.querySelector(".open-modal");
+let closeModalBtn = document.querySelector(".close-modal");
+//let ticketDelete = document.querySelector(".ticket-delete");
 let selectedFilter = "red";
 //console.log(openModalBtn);
 //console.log(ticketContainer);
@@ -20,17 +22,65 @@ function loadTickets(){
             let ticketDiv = document.createElement("div");
             ticketDiv.classList.add("realTicketBox");
             ticketDiv.innerHTML = `<div class="ticket-header ${ticketFilter}"></div>
-                <div class="realTextBoxID">#${ticketId}</div>
+                <div class="ticket-info">
+                    <div class="realTextBoxID">#${ticketId}</div>
+                    <div class="ticket-delete">
+                        <i class="fas fa-trash-alt" id=${ticketId}></i>
+                    </div>
+                </div>
                 <div class="realText">${ticketContent}</div>`;
 
+            ticketDiv.querySelector(".ticket-header").addEventListener("click", toggleTicketFilter);
+            ticketDiv.querySelector(".ticket-delete i").addEventListener("click", handleTicketDelete);
             ticketContainer.append(ticketDiv);
         }
     }
 }
-
 loadTickets();
 
 openModalBtn.addEventListener("click", handleOpenModal);
+closeModalBtn.addEventListener("click", handleCloseModal);
+//ticketDelete.addEventListener("click", handleTicketDelete);
+
+function toggleTicketFilter(e){
+    let filters = ["red", "blue", "green", "black"];
+    let currFilter = e.target.classList[1];
+    let idx = filters.indexOf(currFilter);
+    idx++;
+    idx = idx%filters.length;
+    let currTicketHeader = e.target;
+    currTicketHeader.classList.remove(currFilter);
+    currTicketHeader.classList.add(filters[idx]);
+
+    let allTickets = JSON.parse(localStorage.getItem("allTickets"));
+    let id = currTicketHeader.nextElementSibling.children[0].textContent.split(#)[1];
+    console.log(id);
+
+    for(let i=0;i<allTickets.length;i++){
+        if(allTickets[i].ticketId == id){
+            allTickets[i].ticketFilter = filters[idx];
+        }
+    }
+
+    localStorage.setItem("allTickets", JSON.stringify(allTickets));
+}
+
+function handleTicketDelete(e){
+    //console.log(e.target.id);
+    let ticketToBeDeleted = e.target.id;
+    let allTickets = JSON.parse(localStorage.getItem("allTickets"));
+    let filteredTickets = allTickets.filter(function(curTicketObj){
+        return curTicketObj.ticketId != ticketToBeDeleted;
+    })
+    localStorage.setItem("allTickets", JSON.stringify(filteredTickets));
+    loadTickets();
+}
+
+function handleCloseModal(){
+    if(document.querySelector(".ticket-box")){
+        document.querySelector(".ticket-box").remove();
+    }
+}
 
 function handleOpenModal(){
     let modal = document.querySelector(".ticket-box");
@@ -82,9 +132,15 @@ function addTicket(e){
         let ticketDiv = document.createElement("div");
         ticketDiv.classList.add("realTicketBox");
         ticketDiv.innerHTML = `<div class="ticket-header ${selectedFilter}"></div>
-            <div class="realTextBoxID">#${ticketId}</div>
+                <div class="ticket-info">
+                    <div class="realTextBoxID">#${ticketId}</div>
+                    <div class="ticket-delete">
+                        <i class="fas fa-trash-alt" id=${ticketId}></i>
+                    </div>
+                </div>
             <div class="realText">${modalText}</div>`;
-
+        ticketDiv.querySelector(".ticket-header").addEventListener("click", toggleTicketFilter);
+        ticketDiv.querySelector(".ticket-delete i").addEventListener("click", handleTicketDelete);
         ticketContainer.append(ticketDiv);
 
         e.target.parentNode.remove();
@@ -186,22 +242,18 @@ function loadSelectedTickets(ticketFilter){
             let ticketDiv = document.createElement("div");
             ticketDiv.classList.add("realTicketBox");
             ticketDiv.innerHTML = `<div class="ticket-header ${ticketFilter}"></div>
-                <div class="realTextBoxID">#${ticketId}</div>
+                    <div class="ticket-info">
+                        <div class="realTextBoxID">#${ticketId}</div>
+                        <div class="ticket-delete">
+                            <i class="fas fa-trash-alt" id=${ticketId}></i>
+                        </div>
+                    </div>
                 <div class="realText">${ticketContent}</div>`;
-
+            ticketDiv.querySelector(".ticket-header").addEventListener("click", toggleTicketFilter);
+            ticketDiv.querySelector(".ticket-delete i").addEventListener("click", handleTicketDelete);
             ticketContainer.append(ticketDiv);
         }
 
         //console.log(filteredTickets);
     }
 }
-
-
-
-
-
-
-
-
-
-
