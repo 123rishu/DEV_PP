@@ -19,7 +19,7 @@
     height: 30px;
 }
 
-.cells-content{height: calc( 100vh - 150px);background: forestgreen;}
+.cells-content{height: calc( 100vh - 150px);/* background: #77ff77; */position: relative;overflow: auto;}
 
 .sheets{
     border: 1px solid;
@@ -47,5 +47,63 @@ border: 1px solid;
     
 min-height: 30px;
     
+/* background: aliceblue; */
+    
 min-width: 70px;
+}
+
+.top-left-cell{
+
+height: 30px;
+
+width: 30px;
+
+position: absolute;
+
+background: aliceblue;
+
+z-index: 3;
+}
+
+.top-row{
+    display: flex;
+    position: absolute;
+    background: aquamarine;
+    left: 30px;
+    /* top: 120px; */
+    z-index: 2;
+    /* left: 30px; */
+}
+
+.top-row-cell{
+    border: 1px solid;
+    min-height: 30px;
+    min-width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-col{
+    background: aquamarine;
+    width: 30px;
+    position: absolute;
+    z-index: 2;
+    top: 30px;
+}
+
+.left-col-cell{
+    height: 30px;
+    width: 30px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cells{
+    position: absolute;
+    top: 30px;
+    /* background: floralwhite; */
+    left: 30px;
 }
