@@ -32,13 +32,35 @@ for(let i=0;i<allCells.length;i++){
         let rowId = e.target.getAttribute("rowid");
         let colId = e.target.getAttribute("colid"); 
         let cellObject = db[rowId][colId];
+
         if(cellObject.value == cellValue){
             return;
         }
+
+        if(cellObject.formula){
+            removeFormula(cellObject);
+            formulaInput.value = "";
+        }
+
         cellObject.value = cellValue;
 
         //update it's children value as well
         updateChildren(cellObject);
+    })
+
+    allCells[i].addEventListener("keydown", function(e){
+        if(e.key == "Backspace"){
+            let cell = e.target;
+            let {rowId, colId} = getRowIdColIdFromElement(cell);
+            let cellObject = db[rowId][colId];
+            if(cellObject.formula){
+                cell.textContent="";
+                cellObject.formula = "";
+                removeFormula(cellObject);
+                formulaInput.value = "";
+            }
+            //updateChildren(cellObject);
+        }
     })
 }
 
@@ -56,6 +78,7 @@ formulaInput.addEventListener("blur", function(e){
         lastSelectedCell.textContent = computedValue;
         //children update
         updateChildren(cellObject);
+        console.log(db);
     }
 })
 

@@ -13,6 +13,7 @@ function solveFormula(formula, lastSelectedCellObject){
 
             if(lastSelectedCellObject){
                 cellObject.children.push(lastSelectedCellObject.name);
+                lastSelectedCellObject.parents.push(cellObject.name);
             }
             let value = cellObject.value;
             formula = formula.replace(formSingleComp, value);
@@ -23,6 +24,22 @@ function solveFormula(formula, lastSelectedCellObject){
     //Stack Infix Evaluation !!!
     let computedValue = eval(formula);
     return computedValue;
+}
+
+function removeFormula(cellObject){
+    cellObject.formula = "";
+    for(let i=0;i<cellObject.parents.length;i++){
+        let parentName = cellObject.parents[i];
+        let {rowId, colId} = getRowIdColIdFromAddress(parentName);
+        let parentObject = db[rowId][colId];
+
+        let updatedParentsChildren = parentObject.children.filter(function(curr){
+            return curr != cellObject.name;
+        })
+
+        parentObject.children = updatedParentsChildren;
+    }
+    cellObject.parents = [];
 }
 
 function updateChildren(cellObject){
