@@ -54,7 +54,8 @@ formulaInput.addEventListener("blur", function(e){
         db[rowId][colId].value = computedValue;
         //ui update
         lastSelectedCell.textContent = computedValue;
-        console.log(db);
+        //children update
+        updateChildren(cellObject);
     }
 })
 
