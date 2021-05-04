@@ -1,4 +1,4 @@
-function solveFormula(formula){
+function solveFormula(formula, lastSelectedCellObject){
     // ( A1 + A2 )
     let formulaComps = formula.split(" ");
     //["(", "A1", "+", "A2", ")"]
@@ -10,6 +10,10 @@ function solveFormula(formula){
             //A1 -> Z100
             let {rowId, colId} = getRowIdColIdFromAddress(formSingleComp);
             let cellObject = db[rowId][colId];
+
+            if(lastSelectedCellObject){
+                cellObject.children.push(lastSelectedCellObject.name);
+            }
             let value = cellObject.value;
             formula = formula.replace(formSingleComp, value);
             // ( 10 + A2 )
@@ -19,6 +23,30 @@ function solveFormula(formula){
     //Stack Infix Evaluation !!!
     let computedValue = eval(formula);
     return computedValue;
+}
+
+function updateChildren(cellObject){
+    // {
+    //     name:"A1",
+    //     value: "100",
+    //     formula:"",
+    //     children:[]
+    // }
+    for(let i=0;i<cellObject.children.length;i++){
+        let childrenName = cellObject.children[i];
+
+        let {rowId, colId} = getRowIdColIdFromAddress(childrenName);
+        let childrenCellObject = db[rowId][colId];
+
+        let newValue = solveFormula(childrenCellObject.formula);
+        //Add it to UI
+        document.querySelector(`div[rowid="${rowId}"][colid="${colId}"]`).textContent = newValue;
+        //Add it to DB as well
+        childrenCellObject.value = newValue;
+        updateChildren(childrenCellObject);
+    }
+
+
 }
 
 function getRowIdColIdFromElement(element){
