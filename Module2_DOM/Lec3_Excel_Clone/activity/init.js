@@ -27,9 +27,11 @@ function initCells(){
 }
 initCells();
 
-let db;
+let sheetsDB = [];
+let db;  // active database
+let visitedCells; // active sheet visitedCells
 function initDB(){
-    db = [];
+    newSheetDB = [];
     for(let i=0;i<100;i++){
         let row = [];
         for(let j=0;j<26;j++){
@@ -40,12 +42,16 @@ function initDB(){
                 value:"",
                 formula:"",
                 children:[],
-                parents:[]
+                parents:[],
+                isVisited:false
             }
             row.push(cellObject);
         }
-        db.push(row);
+        newSheetDB.push(row);
     }
-    //console.log(db);
+    visitedCells = [];
+    db = newSheetDB;
+    sheetsDB.push({db:newSheetDB, visitedCells: visitedCells});
+    //console.log(sheetsDB);
 }
 initDB();

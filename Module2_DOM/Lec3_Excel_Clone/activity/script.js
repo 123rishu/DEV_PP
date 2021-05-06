@@ -16,10 +16,13 @@ cellsContent.addEventListener("scroll", function(e){
     leftCol.style.left =left+"px";
 })
 
+let rowId;
+let colId;
+
 for(let i=0;i<allCells.length;i++){
     allCells[i].addEventListener("click", function(e){
-        let rowId = Number(e.target.getAttribute("rowid"));
-        let colId = Number(e.target.getAttribute("colid"));
+        rowId = Number(e.target.getAttribute("rowid"));
+        colId = Number(e.target.getAttribute("colid"));
         let cellObject = db[rowId][colId];
         let address = String.fromCharCode(65 + colId)+(rowId + 1)+"";
         addressInput.value = address;
@@ -29,8 +32,8 @@ for(let i=0;i<allCells.length;i++){
     allCells[i].addEventListener("blur", function(e){
         lastSelectedCell = e.target;
         let cellValue = e.target.textContent;
-        let rowId = e.target.getAttribute("rowid");
-        let colId = e.target.getAttribute("colid"); 
+        //let rowId = e.target.getAttribute("rowid");
+        //let colId = e.target.getAttribute("colid"); 
         let cellObject = db[rowId][colId];
 
         if(cellObject.value == cellValue){
@@ -46,6 +49,13 @@ for(let i=0;i<allCells.length;i++){
 
         //update it's children value as well
         updateChildren(cellObject);
+
+        if(cellObject.isVisited){
+            return;
+        }
+        cellObject.isVisited = true;
+        visitedCells.push({rowId: rowId, colId: colId});
+        //console.log(sheetsDB);
     })
 
     allCells[i].addEventListener("keydown", function(e){
@@ -82,7 +92,14 @@ formulaInput.addEventListener("blur", function(e){
         lastSelectedCell.textContent = computedValue;
         //children update
         updateChildren(cellObject);
-        console.log(db);
+
+        if(cellObject.isVisited){
+            return;
+        }
+        cellObject.isVisited = true;
+        visitedCells.push({rowId: rowId, colId: colId});
+        console.log(sheetsDB);
+        //console.log(db);
     }
 })
 

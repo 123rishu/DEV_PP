@@ -12,7 +12,23 @@ addSheetBtn.addEventListener("click", function(){
     sheetDiv.setAttribute("sheetid", sheetId);
     sheetDiv.innerHTML = `Sheet ${sheetId+1}`;
     sheetsList.append(sheetDiv);
+    //UI should be new
+    initUI();
+
+    //create new sheet db
+    //overallDB me newsheetdb add
+    //active db = new sheet db
+    initDB();
+    //console.log(sheetsDB);  
 })
+
+function initUI(){
+    for(let i=0 ; i<visitedCells.length ; i++){
+        let {rowId , colId} = visitedCells[i];
+        //console.log(rowId, colId);
+        document.querySelector(`div[rowid="${rowId}"][colid="${colId}"]`).innerHTML = "";
+    }
+}
 
 sheetsList.addEventListener("click", function(e){
     let selectedSheetDiv = e.target;
@@ -23,4 +39,29 @@ sheetsList.addEventListener("click", function(e){
     }
     //if it doesn't have any
     selectedSheetDiv.classList.add("active-sheet");
+
+    initUI();
+
+    //set current db to active sheet db
+    let sheetId = selectedSheetDiv.getAttribute("sheetid");
+    db = sheetsDB[sheetId].db;
+    visitedCells = sheetsDB[sheetId].visitedCells;
+
+    //set UI according to the db
+    setUI();
 })
+
+function setUI(){
+    // for(let i=0;i<100;i++){
+    //     for(let j=0;j<26;j++){
+    //         let currCellObject = db[i][j];
+    //         document.querySelector(`div[rowid="${i}"][colid="${j}"]`).textContent = currCellObject.value;
+    //     }
+    // }
+    for(let i=0 ; i<visitedCells.length ; i++){
+        let {rowId , colId} = visitedCells[i];
+        let currCellObject = db[rowId][colId];
+        document.querySelector(`div[rowid="${rowId}"][colid="${colId}"]`).innerHTML = currCellObject.value;
+    }
+}
+
