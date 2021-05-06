@@ -6,12 +6,15 @@
 }
 
 .menu{
-    border: 1px solid;
+    /*- border: 1px solid; */
     height: 30px;
+    background: #eff2f3;
+    display: flex;
+    border-bottom: 1px solid lightgray;
 }
 
 .menu-options{
-    border: 1px solid;
+    /* border: 1px solid; */
     height: 60px;
 }
 
@@ -151,4 +154,88 @@ z-index: 3;
 .add-sheet .fas{
     
 color: green;
+}
+
+.menu div{
+    width: 60px;
+    /* background: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid lightgray;
+    cursor: pointer;
+}
+
+.file{
+    
+}
+
+.home{
+
+}
+
+.active-menu{
+    background: white;
+    font-weight: bold;
+}
+
+.file-menu-options{}
+
+.home-menu-options{
+    height: 100%;
+}
+
+.hide{
+    display: none;
+}
+
+.font-style{
+
+display: flex;
+
+/* background: aqua; */
+
+height: 100%;
+
+width: 149px;
+
+justify-content: space-around;
+
+align-items: center;
+
+border-right: 1px solid lightgray;
+
+/* cursor: pointer; */
+}
+
+.font-style div{
+
+cursor: pointer;
+
+/* background: #b5bedb; */
+
+height: 29px;
+
+display: flex;
+
+justify-content: center;
+
+border-radius: 5px;
+
+align-items: center;
+
+width: 25px;
+}
+
+.font-style div:hover{
+    background: #d7dcec;
+    opacity: 0.5;
+}
+
+.font-style div .fas{
+
+}
+
+.active-font-style{
+    background: #d7dcec;
 }
