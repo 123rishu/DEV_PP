@@ -13,26 +13,18 @@
     <div class="chat-container">
         <div class="left-view">
             <div class="me">
-                <div class="user">
-                    <div class="user-img">
-                        <img src="" alt="">
-                    </div>
-                    <div class="user-name"></div>
+                <div class="user-img">
+                    <img src="default.jpg" alt="">
                 </div>
+                <div class="user-name"></div>
             </div>
             <div class="online-list">
-                <div class="user">
+                <!-- <div class="user">
                     <div class="user-img">
-                        <img src="" alt="">
+                        <img src="default.jpg" alt="">
                     </div>
-                    <div class="user-name"></div>
-                </div>
-                <div class="user">
-                    <div class="user-img">
-                        <img src="" alt="">
-                    </div>
-                    <div class="user-name"></div>
-                </div>
+                    <div class="user-name">Tony</div>
+                </div> -->
             </div>
         </div>
         <div class="right-view">
@@ -52,6 +44,11 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script>
+        const socket = io();
+    </script>
     <script src="./script.js"></script>
+    <script src="./socket.js"></script>
 </body>
 </html>
