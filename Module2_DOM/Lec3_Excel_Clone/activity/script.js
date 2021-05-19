@@ -28,6 +28,25 @@ for(let i=0;i<allCells.length;i++){
         addressInput.value = address;
         formulaInput.value = cellObject.formula;
 
+        //add active class
+        console.log(lastSelectedCell);
+        if(lastSelectedCell){
+            lastSelectedCell.classList.remove("active-cell");
+            let {rowId, colId} = getRowIdColIdFromElement(lastSelectedCell);
+            document.querySelector(`div[tcid="${colId}"]`).classList.remove("cell-selected");
+            document.querySelector(`div[crid="${rowId}"]`).classList.remove("cell-selected");
+        }
+        
+        //adding active-class which add green borders on the currently selected cell
+        let curSelectedCell = document.querySelector(`div[rowid="${rowId}"][colid="${colId}"]`);
+        curSelectedCell.classList.add("active-cell");
+
+        //adding cell-selected class on the currently selected cell row header and column header
+        let curSelectedTopCell = document.querySelector(`div[tcid="${colId}"]`);
+        curSelectedTopCell.classList.add("cell-selected");
+        let curSelectedLeftCell = document.querySelector(`div[crid="${rowId}"]`);
+        curSelectedLeftCell.classList.add("cell-selected");
+
         cellObject.fontStyle.bold 
             ? document.querySelector(".bold").classList.add("active-font-style")
             : document.querySelector(".bold").classList.remove("active-font-style");

@@ -4,13 +4,14 @@ function initCells(){
     let cells = `<div class="top-left-cell"></div>`;
     cells += `<div class="top-row">`;
     for(let i=0;i<26;i++){
-        cells += `<div class="top-row-cell">${String.fromCharCode(65+i)}</div>`;
+        cells += `<div class="top-row-cell" tcid="${i}">${String.fromCharCode(65+i)}
+        </div>`;
     }
     cells += `</div>`;
 
     cells += `<div class="left-col">`;
     for(let i=0;i<100;i++){
-        cells += `<div class="left-col-cell">${i+1}</div>`;
+        cells += `<div class="left-col-cell" crid="${i}">${i+1}</div>`;
     }
     cells += `</div>`;
 

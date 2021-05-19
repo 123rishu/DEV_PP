@@ -1,6 +1,6 @@
-let menuDiv = document.querySelector(".menu");
-let fileMenuOptionsDiv = document.querySelector(".file-menu-options");
-let homeMenuOptionsDiv = document.querySelector(".home-menu-options");
+//let menuDiv = document.querySelector(".menu");
+//let fileMenuOptionsDiv = document.querySelector(".file-menu-options");
+//let homeMenuOptionsDiv = document.querySelector(".home-menu-options");
 let boldBtn = document.querySelector(".bold");
 let underlineBtn = document.querySelector(".underline");
 let italicBtn = document.querySelector(".italic");
@@ -50,27 +50,27 @@ function setFontStyle(styleName, element){
     }
 }
 
-menuDiv.addEventListener("click", function(e){
-    let clickedMenuDiv = e.target;
-    if(clickedMenuDiv.classList.contains("menu")){
-        return;
-    }
+// menuDiv.addEventListener("click", function(e){
+//     let clickedMenuDiv = e.target;
+//     if(clickedMenuDiv.classList.contains("menu")){
+//         return;
+//     }
 
-    if(clickedMenuDiv.classList.contains("active-menu")){
-        return;
-    }
+//     if(clickedMenuDiv.classList.contains("active-menu")){
+//         return;
+//     }
 
-    document.querySelector(".active-menu").classList.remove("active-menu");
-    clickedMenuDiv.classList.add("active-menu");
+//     document.querySelector(".active-menu").classList.remove("active-menu");
+//     clickedMenuDiv.classList.add("active-menu");
 
-    let curSelectedMenuDivName = clickedMenuDiv.classList[0];
+//     let curSelectedMenuDivName = clickedMenuDiv.classList[0];
 
-    if(curSelectedMenuDivName == "home"){
-        homeMenuOptionsDiv.classList.remove("hide");
-        fileMenuOptionsDiv.classList.add("hide");
-    }
-    else{
-        fileMenuOptionsDiv.classList.remove("hide");
-        homeMenuOptionsDiv.classList.add("hide");
-    }
-})
+//     if(curSelectedMenuDivName == "home"){
+//         homeMenuOptionsDiv.classList.remove("hide");
+//         fileMenuOptionsDiv.classList.add("hide");
+//     }
+//     else{
+//         fileMenuOptionsDiv.classList.remove("hide");
+//         homeMenuOptionsDiv.classList.add("hide");
+//     }
+// })

@@ -1,11 +1,19 @@
-*{
+:root {
+    --border-color: #EFF0EF;
+    --cell-background: #F5F6F5;
+    --activity-cell: #2ecc71;
+    --cell-selected: #E5E6E5;
+}
+
+* {
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
+    font-size: 0.9rem;
     font-family: 'Roboto', sans-serif;
 }
 
-.menu{
+.menu {
     /*- border: 1px solid; */
     height: 30px;
     background: #eff2f3;
@@ -13,19 +21,29 @@
     border-bottom: 1px solid lightgray;
 }
 
-.menu-options{
+.menu-options {
     /* border: 1px solid; */
-    height: 60px;
+    height: 40px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.address-content{
-    border: 1px solid;
-    height: 30px;
+.address-content {
+    /* border: none; */
+    /* border: 1px solid; */
+    height: 20px;
+    display: flex;
+    border: none;
 }
 
-.cells-content{height: calc( 100vh - 150px);/* background: #77ff77; */position: relative;overflow: auto;}
+.cells-content {
+    height: calc( 100vh - 90px);
+    /* background: #77ff77; */
+    position: relative;
+    border-top: 1px solid var(--border-color);
+    overflow: auto;
+}
 
-.sheets{
+.sheets {
     /* border: 1px solid; */
     height: 30px;
     display: flex;
@@ -33,91 +51,86 @@
     background: #eff2f3;
 }
 
-.row{
-
-display: flex;
-
-/* height: 5%; */
-
-/* width: 100%; */
-
-/* align-items: center; */
+.row {
+    display: flex;
+    /* height: 5%; */
+    /* width: 100%; */
+    /* align-items: center; */
 }
 
-.cell{
-    
-border: 1px solid;
-    
-/* height: 100%; */
-    
-/* width: 8%; */
-    
-min-height: 30px;
-    
-/* background: aliceblue; */
-    
-min-width: 70px;
-    
-max-width: 70px;
+.cell {
+    /* border: 1px solid; */
+    /* height: 100%; */
+    /* width: 8%; */
+    min-height: 20px;
+    /* background: aliceblue; */
+    min-width: 90px;
+    /* max-width: 70px; */
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    outline: none;
 }
 
-.top-left-cell{
-
-height: 30px;
-
-width: 30px;
-
-position: absolute;
-
-background: aliceblue;
-
-z-index: 3;
+.top-left-cell {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    background: var(--cell-background);
+    z-index: 3;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.top-row{
+.top-row {
     display: flex;
     position: absolute;
-    background: #3dc41f;
-    left: 30px;
+    background: var(--cell-background);
+    left: 40px;
     /* top: 120px; */
     z-index: 2;
+    /* min-height: 20px; */
+    /* border-bottom: 1px solid var(--border-color); */
+    /* min-width: 70px; */
     /* left: 30px; */
+    border-left: 1px solid var(--border-color);
 }
 
-.top-row-cell{
-    border: 1px solid;
-    min-height: 30px;
-    min-width: 70px;
+.top-row-cell {
+    /* border: 1px solid; */
+    min-height: 20px;
+    min-width: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.left-col{
-    background: #3dc41f;
-    width: 30px;
+.left-col {
+    background: var(--cell-background);
+    width: 40px;
     position: absolute;
     z-index: 2;
-    top: 30px;
+    top: 20px;
 }
 
-.left-col-cell{
-    height: 30px;
-    width: 30px;
-    border: 1px solid;
+.left-col-cell {
+    height: 20px;
+    width: 40px;
+    /* border: 1px solid; */
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.cells{
+.cells {
     position: absolute;
-    top: 30px;
+    top: 20px;
     /* background: floralwhite; */
-    left: 30px;
+    left: 40px;
 }
 
-.add-sheet{
+.add-sheet {
     width: 30px;
     border-right: 1px solid darkgray;
     display: flex;
@@ -126,16 +139,18 @@ z-index: 3;
     justify-content: center;
 }
 
-.fas{}
+.fas {
+}
 
-.fa-plus{}
+.fa-plus {
+}
 
-.sheets-list{
+.sheets-list {
     display: flex;
     height: 100%;
 }
 
-.sheet{
+.sheet {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,17 +161,16 @@ z-index: 3;
     cursor: pointer;
 }
 
-.active-sheet{
+.active-sheet {
     background: white;
     font-weight: bold;
 }
 
-.add-sheet .fas{
-    
-color: green;
+.add-sheet .fas {
+    color: green;
 }
 
-.menu div{
+.menu div {
     width: 60px;
     /* background: aqua; */
     display: flex;
@@ -166,76 +180,105 @@ color: green;
     cursor: pointer;
 }
 
-.file{
-    
+.file {
 }
 
-.home{
-
+.home {
 }
 
-.active-menu{
+.active-menu {
     background: white;
     font-weight: bold;
 }
 
-.file-menu-options{}
-
-.home-menu-options{
-    height: 100%;
+.file-menu-options {
 }
 
-.hide{
+.home-menu-options {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.hide {
     display: none;
 }
 
-.font-style{
-
-display: flex;
-
-/* background: aqua; */
-
-height: 100%;
-
-width: 149px;
-
-justify-content: space-around;
-
-align-items: center;
-
-border-right: 1px solid lightgray;
-
-/* cursor: pointer; */
+.font-style {
+    display: flex;
+    /* background: aqua; */
+    height: 60%;
+    width: 150px;
+    justify-content: space-around;
+    align-items: center;
+    border-right: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
-.font-style div{
-
-cursor: pointer;
-
-/* background: #b5bedb; */
-
-height: 29px;
-
-display: flex;
-
-justify-content: center;
-
-border-radius: 5px;
-
-align-items: center;
-
-width: 25px;
+.font-style div {
+    cursor: pointer;
+    /* background: #b5bedb; */
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    align-items: center;
+    width: 25px;
 }
 
-.font-style div:hover{
+.font-style div:hover {
     background: #d7dcec;
     opacity: 0.5;
 }
 
-.font-style div .fas{
-
+.font-style div .fas {
 }
 
-.active-font-style{
+.active-font-style {
     background: #d7dcec;
 }
+
+#address {
+    width: 50px;
+    border: none;
+    text-align: center;
+}
+
+#formula {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-left: 1px solid var(--border-color);
+    padding: 5px;
+}
+
+.active-cell {
+    border: 2px solid var(--activity-cell);
+}
+
+.cell-selected {
+    background: var(--cell-selected);
+}
+
+/* .icon-topRow {
+    position: relative;
+    left: 22px;
+    cursor: pointer;
+    opacity:0;
+}
+
+//.top-row-cell:hover{
+    opacity:1;
+} */
+
+/* .icon-topRow:hover{
+    opacity:1;
+}
+
+.icon-leftCol {
+    top: 6px;
+    position: relative;
+    left: 17px;
+    cursor: pointer;
+} */
+
