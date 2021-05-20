@@ -288,3 +288,16 @@
 .font-text-size {
     width: 55px;
 }
+
+.realtime-cell {
+    border: 2px solid #9b59b6;
+    position: relative;
+}
+
+.username-div {
+    color: #9b59b6;
+    position: absolute;
+    font-size: 10px;
+    left: 90px;
+    top: 10px;
+}

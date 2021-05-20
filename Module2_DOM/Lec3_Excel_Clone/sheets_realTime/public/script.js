@@ -6,7 +6,8 @@ let addressInput = document.querySelector("#address");
 let formulaInput = document.querySelector("#formula");
 let lastSelectedCell;
 
-let username = prompt("Enter ");
+let username = prompt("Enter Your Name !");
+socket.emit("userConnected" , username );
 
 
 cellsContent.addEventListener("scroll", function(e){
@@ -17,7 +18,7 @@ cellsContent.addEventListener("scroll", function(e){
     topLeftCell.style.top =top+"px";
     topLeftCell.style.left =left+"px";
     leftCol.style.left =left+"px";
-})
+}) 
 
 let rowId;
 let colId;
@@ -73,6 +74,8 @@ for(let i=0;i<allCells.length;i++){
         //2. set text align of currently selected cell
         let alignmentValue = cellObject.textAlign;
         document.querySelector(`.${alignmentValue}`).classList.add("active-font-style");
+
+        socket.emit("cellClicked", {rowId, colId});
     })
 
     allCells[i].addEventListener("blur", function(e){
@@ -118,6 +121,12 @@ for(let i=0;i<allCells.length;i++){
             //updateChildren(cellObject);
         }
     })
+
+    allCells[i].addEventListener("keyup", function(e){
+        let cellValue = allCells[i].textContent;
+        //console.log(cellValue);
+        socket.emit("cellValue", cellValue);
+    })
 }
 
 formulaInput.addEventListener("blur", function(e){
@@ -148,8 +157,3 @@ formulaInput.addEventListener("blur", function(e){
         //console.log(db);
     }
 })
-
-
-
-
-
