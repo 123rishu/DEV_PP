@@ -9,11 +9,21 @@
 </head>
 <body>
     <div class="video-container">
-        <video autoplay></video>
+        <video autoplay style="transform: scale(1);"></video>
     </div>
 
-    <button id="record-video">Record</button>
-    <button id="capture-photos">Capture</button>
+    <div class="media-controls">
+        <div class="zoom-controls">
+            <div class="zoom-in">+</div>
+            <div class="zoom-out">-</div>
+        </div>
+        <div id="record-video">
+            <div class="record-video-animate"></div>
+        </div>
+        <div id="capture-photos">
+            <div class="capture-photo-animate"></div>
+        </div>
+    </div>
     <script src="./script.js"></script>
 </body>
 </html>

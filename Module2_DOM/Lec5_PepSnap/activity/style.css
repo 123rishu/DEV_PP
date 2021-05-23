@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.video-container {
+    background: black;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+video {
+    height: 100%;
+    width: 100%;
+}
+
+.media-controls {
+    /* background: aqua; */
+    height: 275px;
+    width: 112px;
+    position: absolute;
+    top: 224px;
+    display: flex;
+    right: 150px;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.media-controls>div {
+    /* background: yellowgreen; */
+    height: 74px;
+    width: 74px;
+    border: 7px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.zoom-controls {
+    border-radius: 0 !important;
+    border: none !important;
+    justify-content: space-around !important;
+}
+
+.zoom-controls div {
+    width: 40%;
+    height: 25%;
+    background: white;
+    /* text-align: center; */
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-video-animate {
+    height: 70%;
+    background: red;
+    width: 70%;
+    border-radius: 50%;
+}
+
+.capture-photo-animate {
+    height: 70%;
+    width: 70%;
+    background: white;
+    border-radius: 50%;
+}
+
+.record-animate {
+    animation: scaleUpDown 1s infinite;
+}
+
+.capture-animate {
+    animation: scaleUpDown 1s 1;
+}
+
+@keyframes scaleUpDown {
+    0% {
+        transform: sacle(1);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

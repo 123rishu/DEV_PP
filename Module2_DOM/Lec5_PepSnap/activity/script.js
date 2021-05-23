@@ -2,9 +2,29 @@ let videoPlayer = document.querySelector("video");
 let constraints = {video:true};
 let recordBtn = document.querySelector("#record-video");
 let photoBtn = document.querySelector("#capture-photos");
+let zoomInBtn = document.querySelector(".zoom-in");
+let zoomOutBtn = document.querySelector(".zoom-out");
 let recordingState = false;
 let recordedData;
 let mediaRecorder;
+let maxZoom = 3;
+let minZoom = 1;
+let currZoom = 1;
+
+zoomInBtn.addEventListener("click", function(){
+    if((currZoom+0.1) <= maxZoom){
+        currZoom = currZoom + 0.1;
+        videoPlayer.style.transform = `scale(${currZoom})`
+        //videoPlayer.style.transform = scale(currZoom);
+    }
+});
+
+zoomOutBtn.addEventListener("click", function(){
+    if((currZoom-0.1) >= minZoom){
+        currZoom = currZoom - 0.1;
+        videoPlayer.style.transform = `scale(${currZoom})`
+    }
+});
 
 (async function(){
     try{
@@ -36,12 +56,12 @@ let mediaRecorder;
             if(recordingState){
                 //stop the recording
                 mediaRecorder.stop();
-                recordBtn.innerHTML = "Record";
+                recordBtn.querySelector("div").classList.remove("record-animate");
             }
             else{
                 //start the recording
                 mediaRecorder.start();
-                recordBtn.innerHTML = "Recording";
+                recordBtn.querySelector("div").classList.add("record-animate");
             }
             recordingState = !recordingState;
         })
@@ -53,15 +73,28 @@ let mediaRecorder;
 })();
 
 function capturePhotos() {
+
+    photoBtn.querySelector("div").classList.add("capture-animate");
+
+    setTimeout(function(){
+        photoBtn.querySelector("div").classList.remove("capture-animate");
+    }, 1000);
+
+
     let canvas = document.createElement("canvas");
     canvas.height = videoPlayer.videoHeight;
     canvas.width = videoPlayer.videoWidth;
-  
     let ctx = canvas.getContext("2d");
+
+    //canvas is scaled according to currZoom
+    if(currZoom != 1){
+        ctx.translate(canvas.width/2, canvas.height/2);
+        ctx.scale(currZoom, currZoom);
+        ctx.translate(-canvas.width/2, -canvas.height/2);
+    }
+
     ctx.drawImage(videoPlayer, 0, 0);
-  
     let imageUrl = canvas.toDataURL("image/jpg"); //canvas object => file url String
-  
     let aTag = document.createElement("a");
     aTag.download = "photo.jpg";
     aTag.href = imageUrl;
