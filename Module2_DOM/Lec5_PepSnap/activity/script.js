@@ -1,6 +1,6 @@
 let videoPlayer = document.querySelector("video");
 let recordButton = document.querySelector("#record-video");
-let photoButton = document.querySelector("#capture-photo");
+let photoButton = document.querySelector("#capture-photos");
 let zoomIn = document.querySelector("#in");
 let zoomOut = document.querySelector("#out");
 let recordingState = false;
@@ -8,11 +8,9 @@ let constraints = { video: true };
 let recordedData;
 let mediaRecorder;
 
-
 let maxZoom = 3;
 let minZoom = 1;
 let currZoom = 1;
-
 
 (async function () {
   let mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -67,19 +65,16 @@ let currZoom = 1;
   });
 })();
 
-
-
-
-
 function saveVideoToFs() {
   console.log("Saving Video");
   // file object in recordedData
   let videoUrl = URL.createObjectURL(recordedData); // convert Blob object into Blob Url
   // console.log(videoUrl);
+  let blob = new Blob([recordedData], {type:"video/mp4"});
 
   let iv = setInterval( function(){
     if(db){
-      saveMedia("Video" , videoUrl);
+      saveMedia("Video" , blob);
       clearInterval(iv);
     }
   }  , 100 );

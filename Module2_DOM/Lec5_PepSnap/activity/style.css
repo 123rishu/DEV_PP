@@ -81,6 +81,26 @@ video {
     animation: scaleUpDown 1s 1;
 }
 
+#gallery-btn {
+    position: absolute;
+    top: 85%;
+    left: 90%;
+    /* background: aqua; */
+    height: 10%;
+    width: 5%;
+    border: 4px solid white;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.fas {
+}
+
 @keyframes scaleUpDown {
     0% {
         transform: sacle(1);

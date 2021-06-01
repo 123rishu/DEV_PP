@@ -54,6 +54,11 @@
                 alert("In Success Event");
                 db = e.target.result;
                 //console.log(db);
+
+                db.onversionchange = function(e){
+                    alert("Version Changed !");
+                    db.close();
+                }
             }
 
             dbRequest.onerror = function(e){
@@ -64,11 +69,8 @@
 
         function addMedia(){
             let txn = db.transaction("Media" , "readwrite");
-            
-            let mediaStore = txn.objectStore("Media");
-            
+            let mediaStore = txn.objectStore("Media"); 
             mediaStore.add({mid:mid.value , type:mediaType.value});
-
             // console.log(txn);
             txn.onerror = function(e){
                 console.log("txn failed !!");
@@ -79,10 +81,8 @@
         function showMedia(){
             let txn = db.transaction("Media" , "readonly");
             let mediaStore = txn.objectStore("Media");
-
             let cursorObject = mediaStore.openCursor();
-            
-            cursorObject.onsuccess = function(e){                
+            cursorObject.onsuccess = function(e){             
                 let cursor = cursorObject.result;
                 if(cursor){
                     console.log(cursor.value);
