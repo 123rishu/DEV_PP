@@ -1,3 +1,9 @@
+//create a main.js file
+//npm init -y
+//npm i electron
+//add this => "start":"electron";
+//in scripts in package.json
+
 const electron = require("electron");
 
 const app = electron.app;
@@ -12,7 +18,7 @@ function createWindow(){
           }
       })
       
-      mainWindow.loadFile("index.html").then( function(){
+      mainWindow.loadFile("public/index.html").then( function(){
           mainWindow.webContents.openDevTools(); //open dev tools
           mainWindow.maximize();
           mainWindow.removeMenu();
