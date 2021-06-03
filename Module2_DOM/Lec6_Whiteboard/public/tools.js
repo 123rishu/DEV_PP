@@ -1,8 +1,6 @@
 let pencil = document.querySelector("#pencil");
 let pencilImgDiv = pencil.querySelector("img");
 let eraser = document.querySelector("#eraser");
-let undo = document.querySelector("#undo");
-let redo = document.querySelector("#redo");
 let sticky = document.querySelector("#sticky");
 let photo = document.querySelector("#photo");
 let download = document.querySelector("#download");
@@ -74,32 +72,6 @@ eraser.addEventListener("click", function(e){
         curToolBtn.classList.add("active-element");
         ctx.strokeStyle = "white";
         ctx.lineWidth = eraserSize;
-    }
-})
-
-undo.addEventListener("click", function(e){
-    let curToolBtn = e.target;
-    if(curToolBtn.classList.contains("active-element")){
-
-    }
-    else{
-        toolOptionsEraser.classList.add("hide");
-        toolOptionsPencils.classList.add("hide");
-        document.querySelector(".active-element").classList.remove("active-element");
-        curToolBtn.classList.add("active-element");
-    }
-})
-
-redo.addEventListener("click", function(e){
-    let curToolBtn = e.target;
-    if(curToolBtn.classList.contains("active-element")){
-
-    }
-    else{
-        toolOptionsEraser.classList.add("hide");
-        toolOptionsPencils.classList.add("hide");
-        document.querySelector(".active-element").classList.remove("active-element");
-        curToolBtn.classList.add("active-element");
     }
 })
 
