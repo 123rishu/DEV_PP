@@ -1,4 +1,5 @@
 let canvas = document.querySelector("#canvas");
+let body = document.querySelector("body");
 
 let {top : canvasTop} = canvas.getBoundingClientRect();
 

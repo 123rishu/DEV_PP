@@ -40,10 +40,14 @@
 
 .canvas-content {
     height: calc(100vh - 60px);
-    //overflow: hidden;
+    // ; /* background: black; */
+    /* background: aliceblue; */
 }
 
 #canvas {
+    /* background: blue; */
+    height: 100%;
+    width: 100%;
 }
 
 .active-element {
@@ -113,4 +117,57 @@
 
 .eraser-size input {
     width: 88%;
+}
+
+.sticky {
+    position: absolute;
+    /* background: aqua; */
+    top: 40%;
+    left: 44%;
+    height: 171px;
+    width: 245px;
+    /* border-radius: 10px; */
+}
+
+.sticky-header {
+    height: 15%;
+    width: 100%;
+    background: lightskyblue;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.sticky-content {
+    height: 85%;
+    width: 100%;
+}
+
+.minimise {
+    background: blue;
+    height: 69%;
+    width: 7%;
+    margin-right: 6px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.close {
+    background: red;
+    height: 67%;
+    width: 7%;
+    border-radius: 50px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.textarea {
+    outline: none;
+    border: none;
+    border: 1px solid lightgray;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 5px;
+    height: 100%;
+    width: 100%;
 }

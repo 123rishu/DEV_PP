@@ -59,19 +59,21 @@ redo.addEventListener("click", function(e){
 })
 
 function redoLine(){
-    let line = redoDB.pop();
-    for(let j=0;j<line.length;j++){
-        let pointObj = line[j];
-        if(pointObj.type == "md"){
-            ctx.strokeStyle = pointObj.color;
-            ctx.width = pointObj.width;
-            ctx.beginPath();
-            ctx.moveTo(pointObj.x, pointObj.y);
+    if(redoDB.length >= 1){
+        let line = redoDB.pop();
+        for(let j=0;j<line.length;j++){
+            let pointObj = line[j];
+            if(pointObj.type == "md"){
+                ctx.strokeStyle = pointObj.color;
+                ctx.width = pointObj.width;
+                ctx.beginPath();
+                ctx.moveTo(pointObj.x, pointObj.y);
+            }
+            else{
+                ctx.lineTo(pointObj.x, pointObj.y);
+                ctx.stroke();
+            }
         }
-        else{
-            ctx.lineTo(pointObj.x, pointObj.y);
-            ctx.stroke();
-        }
+        db.push(line);
     }
-    db.push(line);
 }
