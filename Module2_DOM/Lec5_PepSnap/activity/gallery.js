@@ -78,6 +78,15 @@ function appendVideo(media){
     videoDiv.controls = "true";
 
     mediaDiv.querySelector(".media").append(videoDiv);
+    let downloadBtn = mediaDiv.querySelector(".download-btn");
+    let deleteBtn = mediaDiv.querySelector(".delete-btn");
+    downloadBtn.addEventListener("click", function(){
+        downloadMedia(media);
+    })
+
+    deleteBtn.addEventListener("click", function(){
+        deleteMedia(media);
+    })
     gallery.append(mediaDiv);
 }
 
@@ -105,7 +114,6 @@ function deleteMedia(media){
     let txn = db.transaction("Media", "readonly");
     let mediaStore = txn.objectStore("Media");
     mediaStore.delete(mid);
-
 }
 
 

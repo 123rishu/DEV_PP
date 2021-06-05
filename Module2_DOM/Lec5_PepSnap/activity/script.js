@@ -78,12 +78,6 @@ function saveVideoToFs() {
       clearInterval(iv);
     }
   }  , 100 );
-  // let aTag = document.createElement("a");
-  // aTag.download = "video.mp4";
-  // aTag.href = videoUrl;
-
-  // console.log(aTag);
-  // aTag.click(); // download start for video
 }
 
 function capturePhotos() {
