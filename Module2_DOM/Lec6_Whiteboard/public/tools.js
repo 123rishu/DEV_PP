@@ -1,8 +1,7 @@
 let pencil = document.querySelector("#pencil");
 let pencilImgDiv = pencil.querySelector("img");
 let eraser = document.querySelector("#eraser");
-let photo = document.querySelector("#photo");
-let download = document.querySelector("#download");
+
 let toolOptionsPencils = pencil.querySelector(".tool-options");
 let toolOptionsEraser = eraser.querySelector(".tool-options");
 let pencilInputSize = pencil.querySelector("input");
@@ -74,31 +73,7 @@ eraser.addEventListener("click", function(e){
     }
 })
 
-photo.addEventListener("click", function(e){
-    let curToolBtn = e.target;
-    if(curToolBtn.classList.contains("active-element")){
 
-    }
-    else{
-        toolOptionsEraser.classList.add("hide");
-        toolOptionsPencils.classList.add("hide");
-        document.querySelector(".active-element").classList.remove("active-element");
-        curToolBtn.classList.add("active-element");
-    }
-})
-
-download.addEventListener("click", function(e){
-    let curToolBtn = e.target;
-    if(curToolBtn.classList.contains("active-element")){
-
-    }
-    else{
-        toolOptionsEraser.classList.add("hide");
-        toolOptionsPencils.classList.add("hide");
-        document.querySelector(".active-element").classList.remove("active-element");
-        curToolBtn.classList.add("active-element");
-    }
-})
 
 
 

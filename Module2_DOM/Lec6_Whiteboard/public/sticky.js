@@ -1,7 +1,7 @@
-let sticky = document.querySelector("#sticky");
-
+let count = 0;
 sticky.addEventListener("click", function(e){
     let curToolBtn = e.target;
+    count++;
     if(curToolBtn.classList.contains("active-element")){
 
     }
@@ -12,22 +12,43 @@ sticky.addEventListener("click", function(e){
         document.querySelector(".active-element").classList.remove("active-element");
         curToolBtn.classList.add("active-element");
     }
-
     appendSticky();
 })
 
-function appendSticky(){
+function appendSticky(elem){
     let stickyDiv = document.createElement("div");
     stickyDiv.classList.add("sticky");
-    stickyDiv.innerHTML = `
+    stickyDiv.setAttribute("id", `${count}`);
+    if(elem){
+        stickyDiv.innerHTML = `
             <div class="sticky-header">
                 <div class="minimise"></div>
                 <div class="close"></div>
             </div>
             <div class="sticky-content">
-                <div class="textarea" contenteditable="true"></div>
             </div>`;
+        stickyDiv.querySelector(".sticky-content").append(elem);
+    }
+    else{
+        stickyDiv.innerHTML = `
+            <div class="sticky-header">
+                <div class="minimise"></div>
+                <div class="close"></div>
+            </div>
+            <div class="sticky-content">
+            <div class="textarea" contenteditable="true"></div>
+            </div>`;
+    }
+    let stickyHeader = stickyDiv.querySelector(".sticky-header");
 
+    stickyHeader.addEventListener("mousedown", function(e){
+        isStickyMouseDown = true;
+        let x = e.clientX;
+        let y = e.clientY;
+        currSelectedStickyID = stickyDiv.id;
+        initialX = x;
+        initialY = y;
+    })
     
     stickyDiv.querySelector(".minimise").addEventListener("click" , function(e){
         let stickyContent = stickyDiv.querySelector(".sticky-content");
@@ -42,6 +63,5 @@ function appendSticky(){
     stickyDiv.querySelector(".close").addEventListener("click", function(){
         stickyDiv.remove();
     })
-
     body.append(stickyDiv);
 }

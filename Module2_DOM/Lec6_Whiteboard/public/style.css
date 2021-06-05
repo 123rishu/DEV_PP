@@ -89,6 +89,7 @@
     height: 20px;
     width: 20px;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 .red {
@@ -168,6 +169,11 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.image-upload{
     height: 100%;
     width: 100%;
 }
