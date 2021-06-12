@@ -21,3 +21,4 @@ function sayHi(name){
 
 let value = sayHi("Steve");
 console.log(value);
+
