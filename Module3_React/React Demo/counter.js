@@ -32,10 +32,7 @@ class Counter extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <p className="badge bg-secondary d-inline-block m-2">
-                    
-                    {this.state.count}
-                </p>
+                <p className="badge bg-secondary d-inline-block m-2"> {this.state.count}</p>
                 <div>
                     <button className="btn btn-primary m-2" onClick={this.increment}>
                         +
