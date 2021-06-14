@@ -12,12 +12,34 @@ class App extends Component {
       { id : "5", todo: "Learn JS"},
     ],
    };
+
+   addTodo = (todo) => {
+      let updatedTodos = [ ...this.state.todos, {id:this.state.todos.length+1, todo:todo}];
+     this.setState({
+       todos: updatedTodos
+     })
+   }
+
+   deleteTodo = (id) => {
+      let updatedTodos = this.state.todos.filter(function(todoObj){
+        if(todoObj.id == id){
+          return false;
+        }
+        return true;
+      })
+      this.setState({
+        todos:updatedTodos
+      })
+   }
+
   render() { 
     let todos = this.state.todos;
+    let deleteTodo = this.deleteTodo;
+    let addTodo = this.addTodo;
     return ( 
       <div className="App">
-        <InputBox></InputBox>
-        <TodosList todos={todos}></TodosList>
+        <InputBox addTodo = {addTodo}></InputBox>
+        <TodosList  deleteTodo={deleteTodo} todos={todos}></TodosList>
       </div>
      );
   }

@@ -1,3 +1,12 @@
+//Testing 
 console.log("Hello World");
 
-//testing something
+
+//Map function working
+let names = ['A', 'B', 'C', 'D', 'E'];
+
+let updatedNames = names.map(function(curr){
+    return curr + " Sharma";
+})
+
+console.log(updatedNames);
