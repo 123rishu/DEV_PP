@@ -5,14 +5,16 @@ import "./Movies.css";
 class Movies extends Component {
   state = {  }
   render() { 
-    return ( <React.Fragment>
-      <Movie></Movie>
-      <Movie></Movie>
-      <Movie></Movie>
-      <Movie></Movie>
-      <Movie></Movie>
-      <Movie></Movie>
-    </React.Fragment> );
+    let moviesData = this.props.movies;
+    return ( 
+      <div className="movies">
+        {
+          moviesData.map(function(currMovieObj){
+            return <Movie movie={currMovieObj}></Movie>
+          })
+        }
+      </div>
+     );
   }
 }
  
