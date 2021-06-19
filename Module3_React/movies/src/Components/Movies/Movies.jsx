@@ -10,7 +10,7 @@ class Movies extends Component {
       <div className="movies">
         {
           moviesData.map(function(currMovieObj){
-            return <Movie movie={currMovieObj}></Movie>
+            return <Movie key={currMovieObj.id} movie={currMovieObj}></Movie>
           })
         }
       </div>

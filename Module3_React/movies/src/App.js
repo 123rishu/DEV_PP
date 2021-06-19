@@ -24,11 +24,22 @@ class App extends Component {
     })
   }
 
+  setMovies = async(newMovieName) => {
+    // https://api.themoviedb.org/3/search/movie?api_key=22c80894f6d873434847bec78664b84b&query=Avenger&page=1
+      let dataFromSearch = await axios.get(API_URL + "/search/movie", {
+        params: {api_key: API_KEY, page: 1, query:newMovieName }, 
+      });
+      let moviesData = dataFromSearch.data.results.slice(0, 10);
+      this.setState({
+        moviesData:moviesData,
+        currentMovie:newMovieName
+      })
+  }
 
   render() { 
     return ( 
         <div className="App">
-          <Header></Header>
+          <Header setMovies={this.setMovies}></Header>
           <Movies movies={this.state.moviesData}></Movies>
         </div> 
     );
