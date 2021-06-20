@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Header.css";
+import {Link} from "react-router-dom";
 
 class Header extends Component {
   state = { 
@@ -22,9 +23,11 @@ class Header extends Component {
   render() { 
     return ( 
         <div className="header">
+
           <div className="logo">
             <img src="logo.svg" alt="" />
           </div>
+
           <div className="search-btn">
             <input 
             type="text"
@@ -35,6 +38,17 @@ class Header extends Component {
             value = {this.state.newMovieName}
             />
           </div>
+
+          <div className="header-links">
+              <div className="header-link">
+                  <Link to="/">Home</Link>
+              </div>
+
+              <div className="header-link">
+                  <Link to="/fav">Favourites</Link>
+              </div>
+          </div>
+
         </div>
     );
   }
