@@ -16,8 +16,7 @@ class Movie extends Component {
       let posterPath = IMAGE_URL+detailedMovieObj.poster_path;
       this.setState({
         detailedMovieObj:{ ...detailedMovieObj, poster_path:posterPath },
-      })
-
+      });
     }
 
 
