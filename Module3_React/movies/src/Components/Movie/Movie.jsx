@@ -21,13 +21,15 @@ class Movie extends Component {
 
 
     render() {
+        let myLikedMovies = this.props.myLikedMovies;
         let { poster_path, title, vote_average } = this.props.movie;
         let posterPath = IMAGE_URL + poster_path;
         return (
           <div className="movie-item">
 
             <div className="movie-poster">
-              <Link to={{pathname:"/moviepage", state:this.state.detailedMovieObj}}><img src={posterPath} alt="" /></Link>
+              <Link to={{pathname:"/moviepage", state: {detailedMovieObj: this.state.detailedMovieObj, myLikedMovies: myLikedMovies}, 
+                     }}><img src={posterPath} alt="" /></Link>
             </div>
 
             <div className="movie-info">

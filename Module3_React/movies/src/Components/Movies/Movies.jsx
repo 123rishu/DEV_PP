@@ -6,11 +6,16 @@ class Movies extends Component {
   state = {  }
   render() { 
     let moviesData = this.props.movies;
+    let myLikedMovies = this.props.myLikedMovies;
     return ( 
       <div className="movies">
         {
           moviesData.map(function(currMovieObj){
-            return <Movie key={currMovieObj.id} movie={currMovieObj}></Movie>
+            return <Movie 
+            key={currMovieObj.id} 
+            myLikedMovies={myLikedMovies} 
+            movie={currMovieObj}
+            ></Movie>
           })
         }
       </div>

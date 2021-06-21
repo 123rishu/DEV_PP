@@ -3,7 +3,7 @@ import Header from "./Components/Header/Header.jsx";
 import Movies from "./Components/Movies/Movies.jsx";
 import Pagination from "./Components/Pagination/Pagination.jsx";
 import axios from "axios";
-import Favourite from "./Components/Favourite/Favourite.jsx";
+import Favourites from "./Components/Favourites/Favourites.jsx";
 import MoviePage from "./Components/MoviePage/MoviePage.jsx";
 import { API_KEY, API_URL, IMAGE_URL } from "./API/secrets.js";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
@@ -15,6 +15,7 @@ class App extends Component {
     currentMovie: "avengers",
     pages:[],
     currentPage: 1,
+    myLikedMovies: [],
    };
 
    async componentDidMount(){
@@ -87,20 +88,22 @@ class App extends Component {
       currentPage:currentPageCount
     });
   }
-  
 
   render() { 
     return ( 
         <Router>
         <div className="App">
-            <Header setMovies={this.setMovies}></Header>
+            <Header setMovies={this.setMovies} myLikedMovies={this.state.myLikedMovies}></Header>
             <Switch>
 
                 <Route path="/" exact>
                     {/* condition rendering */}
                     {this.state.moviesData.length ? (
                       <React.Fragment>
-                          <Movies movies={this.state.moviesData}></Movies>
+                          <Movies 
+                            movies={this.state.moviesData}
+                            myLikedMovies={this.state.myLikedMovies}
+                          ></Movies>
                           <Pagination
                               pages={this.state.pages}
                               currentPage={this.state.currentPage}
@@ -115,9 +118,7 @@ class App extends Component {
                     }
                 </Route>
 
-                <Route path="/fav" exact>
-                    <Favourite></Favourite>
-                </Route>
+                <Route path="/fav" exact  component={Favourites}></Route>
 
                 <Route path="/moviepage" exact component={MoviePage}></Route>  
 

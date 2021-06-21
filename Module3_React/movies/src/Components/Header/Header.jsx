@@ -17,6 +17,9 @@ class Header extends Component {
    handleKeyPress = (e) => {
       if(e.key === "Enter"){
           this.props.setMovies(this.state.newMovieName);
+          this.setState({
+            newMovieName:""
+          })
       }
    }
 
@@ -29,6 +32,7 @@ class Header extends Component {
           </div>
 
           <div className="search-btn">
+          <Link to="/">
             <input 
             type="text"
             placeholder="Search"
@@ -37,6 +41,7 @@ class Header extends Component {
             onKeyPress = {this.handleKeyPress}
             value = {this.state.newMovieName}
             />
+            </Link>
           </div>
 
           <div className="header-links">
@@ -45,7 +50,7 @@ class Header extends Component {
               </div>
 
               <div className="header-link">
-                  <Link to="/fav">Favourites</Link>
+                  <Link to={{pathname:"/fav", state: {myLikedMovies: this.props.myLikedMovies}}}>Favourites</Link>
               </div>
           </div>
 
