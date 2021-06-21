@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Favourite from '../Favourite/Favourite';
+import "./Favourites.css"
 
 class Favourites extends Component {
     state = { 
@@ -10,7 +11,7 @@ class Favourites extends Component {
     render() { 
         let myLikedMovies = this.props.location.state.myLikedMovies;
         return ( 
-                <div className="Fav-list">
+                <div className="fav-list">
                      {
                          myLikedMovies.length == 0 ? (
                             <h1>No Movie Liked Yet</h1>
