@@ -1,111 +1,290 @@
-*{
+:root {
+    --border-color: #EFF0EF;
+    --cell-background: #F5F6F5;
+    --activity-cell: #2ecc71;
+    --cell-selected: #E5E6E5;
+}
+
+* {
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
+    font-size: 0.85rem;
+    font-family: 'Roboto', sans-serif;
 }
 
-.menu{
-    border: 1px solid;
+.menu {
+    /*- border: 1px solid; */
     height: 30px;
+    background: #eff2f3;
+    display: flex;
+    border-bottom: 1px solid lightgray;
 }
 
-.menu-options{
-    border: 1px solid;
-    height: 60px;
+.menu-options {
+    /* border: 1px solid; */
+    height: 40px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.address-content{
-    border: 1px solid;
+.address-content {
+    /* border: none; */
+    /* border: 1px solid; */
+    height: 20px;
+    display: flex;
+    border: none;
+}
+
+.cells-content {
+    height: calc( 100vh - 90px);
+    /* background: #77ff77; */
+    position: relative;
+    border-top: 1px solid var(--border-color);
+    overflow: auto;
+}
+
+.sheets {
+    /* border: 1px solid; */
     height: 30px;
+    display: flex;
+    /* width: 30px; */
+    background: #eff2f3;
 }
 
-.cells-content{height: calc( 100vh - 150px);/* background: #77ff77; */position: relative;overflow: auto;}
-
-.sheets{
-    border: 1px solid;
-    height: 30px;
+.row {
+    display: flex;
+    /* height: 5%; */
+    /* width: 100%; */
+    /* align-items: center; */
 }
 
-.row{
-
-display: flex;
-
-/* height: 5%; */
-
-/* width: 100%; */
-
-/* align-items: center; */
+.cell {
+    /* border: 1px solid; */
+    /* height: 100%; */
+    /* width: 8%; */
+    min-height: 20px;
+    /* background: aliceblue; */
+    min-width: 90px;
+    /* max-width: 70px; */
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    outline: none;
 }
 
-.cell{
-    
-border: 1px solid;
-    
-/* height: 100%; */
-    
-/* width: 8%; */
-    
-min-height: 30px;
-    
-/* background: aliceblue; */
-    
-min-width: 70px;
-    
-max-width: 70px;
+.top-left-cell {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    background: var(--cell-background);
+    z-index: 3;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.top-left-cell{
-
-height: 30px;
-
-width: 30px;
-
-position: absolute;
-
-background: aliceblue;
-
-z-index: 3;
-}
-
-.top-row{
+.top-row {
     display: flex;
     position: absolute;
-    background: aquamarine;
-    left: 30px;
+    background: var(--cell-background);
+    left: 40px;
     /* top: 120px; */
     z-index: 2;
+    /* min-height: 20px; */
+    /* border-bottom: 1px solid var(--border-color); */
+    /* min-width: 70px; */
     /* left: 30px; */
+    border-left: 1px solid var(--border-color);
 }
 
-.top-row-cell{
-    border: 1px solid;
-    min-height: 30px;
-    min-width: 70px;
+.top-row-cell {
+    /* border: 1px solid; */
+    min-height: 20px;
+    min-width: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.left-col{
-    background: aquamarine;
-    width: 30px;
+.left-col {
+    background: var(--cell-background);
+    width: 40px;
     position: absolute;
     z-index: 2;
-    top: 30px;
+    top: 20px;
 }
 
-.left-col-cell{
-    height: 30px;
-    width: 30px;
-    border: 1px solid;
+.left-col-cell {
+    height: 20px;
+    width: 40px;
+    /* border: 1px solid; */
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.cells{
+.cells {
     position: absolute;
-    top: 30px;
+    top: 20px;
     /* background: floralwhite; */
-    left: 30px;
+    left: 40px;
+}
+
+.add-sheet {
+    width: 30px;
+    border-right: 1px solid darkgray;
+    display: flex;
+    align-items: center;
+    /* background: aqua; */
+    justify-content: center;
+}
+
+.fas {
+}
+
+.fa-plus {
+}
+
+.sheets-list {
+    display: flex;
+    height: 100%;
+}
+
+.sheet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid lightgray;
+    width: 70px;
+    font-size: 0.8rem;
+    height: 100%;
+    cursor: pointer;
+}
+
+.active-sheet {
+    background: white;
+    font-weight: bold;
+}
+
+.add-sheet .fas {
+    color: green;
+}
+
+.menu div {
+    width: 60px;
+    /* background: aqua; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid lightgray;
+    cursor: pointer;
+}
+
+.file {
+}
+
+.home {
+}
+
+.active-menu {
+    background: white;
+    font-weight: bold;
+}
+
+.file-menu-options {
+}
+
+.home-menu-options {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
+
+.font-style {
+    display: flex;
+    /* background: aqua; */
+    height: 60%;
+    width: 150px;
+    justify-content: space-around;
+    align-items: center;
+    border-right: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.font-style div {
+    cursor: pointer;
+    /* background: #b5bedb; */
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    align-items: center;
+    width: 25px;
+}
+
+.font-style div:hover {
+    background: #d7dcec;
+    opacity: 0.5;
+}
+
+.font-style div .fas {
+}
+
+.active-font-style {
+    background: #d7dcec;
+}
+
+#address {
+    width: 50px;
+    border: none;
+    text-align: center;
+}
+
+#formula {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-left: 1px solid var(--border-color);
+    padding: 5px;
+}
+
+.active-cell {
+    border: 2px solid var(--activity-cell);
+}
+
+.cell-selected {
+    background: var(--cell-selected);
+}
+
+.font-alignment {
+}
+
+.font-alignment div {
+}
+
+.font-alignment .fas {
+}
+
+.font-size {
+    width: 190px;
+}
+
+.font-size select {
+    outline: none;
+    border-radius: 5px;
+    /* width: 84px; */
+    height: 100%;
+    background: var(--cell-background);
+}
+
+.font-type {
+    width: 96px;
+}
+
+.font-text-size {
+    width: 55px;
 }
