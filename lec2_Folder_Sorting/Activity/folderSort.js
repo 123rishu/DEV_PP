@@ -11,6 +11,15 @@ function checkFolder(extension) {
   for (let key in extensions) {
     // "Images" \\ "Audio" ......
     if (extensions[key].includes(extension)) {
+function checkFolder(extension , folderPath) {
+  // .mp3
+  // folderPath ( "./Downloads/Audio" )
+  // check if extension is matching with any folderName
+  // .jpg => Images
+  // "./Downloads"
+  for (let key in extensions) {
+    // "Images" \\ "Audio" ......
+    if ( extensions[key].includes(extension)) {
       // string interpolation
       extFolderPath = `${folderPath}/${key}`;
       break;
@@ -21,6 +30,7 @@ function checkFolder(extension) {
 }
 
 function moveFile(fileName) {
+function moveFile(fileName , folderPath) {
   // copy file
   let sourceFilePath = `${folderPath}/${fileName}`; // "./Downloads/abc.txt"
   let destinationFilePath = `${extFolderPath}/${fileName}`; // "./Downloads/Documents/abc.txt"
