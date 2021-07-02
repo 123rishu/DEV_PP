@@ -4,6 +4,13 @@ let extensions = require("./util");
 let folderPath = "./Downloads";
 let extFolderPath;
 
+function checkFolder(extension) {
+  // check if extension is matching with any folderName
+  // .jpg
+  // "./Downloads"
+  for (let key in extensions) {
+    // "Images" \\ "Audio" ......
+    if (extensions[key].includes(extension)) {
 function checkFolder(extension , folderPath) {
   // .mp3
   // folderPath ( "./Downloads/Audio" )
@@ -22,6 +29,7 @@ function checkFolder(extension , folderPath) {
   return fs.existsSync(extFolderPath);
 }
 
+function moveFile(fileName) {
 function moveFile(fileName , folderPath) {
   // copy file
   let sourceFilePath = `${folderPath}/${fileName}`; // "./Downloads/abc.txt"
@@ -35,35 +43,25 @@ function moveFile(fileName , folderPath) {
 function createFolder() {
   fs.mkdirSync(extFolderPath);
 }
-
 function sortFolder(folderPath) {
   // get content of folderPath
   let content = fs.readdirSync(folderPath);
-  console.log(content);
   for (let i = 0; i < content.length; i++) {
-    // get extension of each file "./Downloads/Misc"
-    let isDirectory = fs.lstatSync(`${folderPath}/${content[i]}`).isDirectory();
-    if(isDirectory){
-      //console.log("It is a folder");
-      // "./Downloads/Audio"
-      if((content[i] == 'Audio') || (content[i] == 'Compressed') || (content[i] == 'Documents') || (content[i] == 'Images') || (content[i] == 'Videos')){
-      }
-      else{
-        sortFolder(`${folderPath}/${content[i]}`);
-      }
-    }
-    else{
-      let extensionName = path.extname(content[i]);
-      console.log(extensionName);
-      let extensionFolderExist = checkFolder(extensionName , folderPath);
-      if (extensionFolderExist) {
-        moveFile(content[i] , folderPath);
-      } else {
-        createFolder();
-        moveFile(content[i] , folderPath);
-      }
+    // get extension of each file
+    let extensionName = path.extname(content[i]);
+    console.log(extensionName);
+    let extensionFolderExist = checkFolder(extensionName);
+    if (extensionFolderExist) {
+      moveFile(content[i]);
+    } else {
+      createFolder();
+      moveFile(content[i]);
     }
   }
 }
 
 sortFolder(folderPath);
+
+
+// Hello world
+// Test master 
