@@ -20,7 +20,7 @@ function sayHi( fullName  , fun  ){
 
 sayHi("TONY STARK" , getFirstName);
 sayHi("BRUCE BANNER" ,  getLastName);
-© 2021 GitHub, Inc.// High Order Functions => Functions which accept functions as a argument !
+// High Order Functions => Functions which accept functions as a argument !
 // Callback Functions => Functions which are passed into a function as a argument !
 
 function getFirstName(fullName){
