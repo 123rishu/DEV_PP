@@ -21,7 +21,6 @@ const App = () => {
             <Switch>
               <Route path="/login" component={Login}></Route>
               <Route path="/signup" component={Signup}></Route>
-              <PrivateRoute></PrivateRoute>
               <PrivateRoute path="/" comp={Feeds}></PrivateRoute>
               <PrivateRoute path="/profile" comp={Profile}></PrivateRoute>
               {/* <Route path="/" component={Feeds}></Route>
@@ -37,7 +36,7 @@ function PrivateRoute(props){
   let {comp:component, path} = props;
   
   let { currUser } = useContext(AuthContext);
-  return currUser ? (<Route path={path} component={component}></Route>) : (<Redirect to="/login" ></Redirect>)
+  return currUser ? (<Route path={path} component={component}></Route>) : (<Redirect to="/login" ></Redirect>);
 }
  
 export default App;
