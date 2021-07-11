@@ -11,3 +11,5 @@ var firebaseConfig = {
 
 let firebaseApp = firebase.initializeApp(firebaseConfig);
 export let firebaseAuth = firebaseApp.auth();
+export let firebaseStorage = firebaseApp.storage();
+export let firebaseDB = firebaseApp.firestore();

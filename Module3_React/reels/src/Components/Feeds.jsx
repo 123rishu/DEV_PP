@@ -4,7 +4,6 @@ import { AuthContext } from '../context/AuthProvider';
 const Feeds = (props) => {
     const {signOut} = useContext(AuthContext);
 
-
     const handleLogOut = async () => {
         try{
             await signOut();
