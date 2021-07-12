@@ -6,8 +6,8 @@ import IntersectionDemo from './IntersectionObserver/intersectionDemo';
 //import Buttons from './MaterialUI/Buttons';
 
 ReactDOM.render(
-  <IntersectionDemo></IntersectionDemo>,
+  <App></App>,
   document.getElementById('root')
 );  
 
-// <App></App>
+// 
