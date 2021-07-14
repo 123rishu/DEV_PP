@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
  import App from './App';
 import IntersectionDemo from './IntersectionObserver/intersectionDemo';
-//import Buttons from './MaterialUI/Buttons';
+import Buttons from './MaterialUI/Buttons';
 
 ReactDOM.render(
-  <App></App>,
+  <Buttons></Buttons>,
   document.getElementById('root')
 );  
 
-// 
+// <App></App>
