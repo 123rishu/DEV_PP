@@ -7,8 +7,8 @@ import Buttons from './MaterialUI/Buttons';
 import Grids from './MaterialUI/Grids';
 
 ReactDOM.render(
-  <Grids></Grids>,
+  <App></App>,
   document.getElementById('root')
 );  
 
-// <App></App>
+// 

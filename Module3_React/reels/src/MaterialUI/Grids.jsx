@@ -17,7 +17,7 @@ const Grids = () => {
 
     return ( 
     <div>
-        <Grid container>
+        <Grid container spacing={5}>
             <Grid item xs={5} sm={2} md={5}>
                 <Paper className={[classes.size, classes.color]}>Item1</Paper>
             </Grid>
