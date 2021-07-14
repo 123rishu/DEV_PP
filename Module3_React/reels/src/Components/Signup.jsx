@@ -173,21 +173,6 @@ const Signup = (props) => {
                                         Upload Profile Image
                                     </Button>
                                 </label>
-                                {/* <Button
-                                    variant="outlined"
-                                    color="secondary"
-                                    onChange={(e) => {
-                                        handleFileSubmit(e);
-                                    }}
-                                    className={classes.fullWidth}
-                                    startIcon={<CloudUploadIcon></CloudUploadIcon>}
-                                >
-                                    Upload Profile Image
-                                    <input
-                                        type="file"
-                                        hidden
-                                    />
-                                </Button> */}
                             </CardActions>
                             <CardActions>
                                 <Button
@@ -208,7 +193,7 @@ const Signup = (props) => {
                             <Typography style={{ textAlign: "center" }}>
                                 Have an account ?
                                 <Button variant="text" color="primary">
-                                    <Link style={{ color: "blue", textDecoration: "none" }} to="/signup">
+                                    <Link style={{ color: "blue", textDecoration: "none" }} to="/login">
                                         Log In
                                     </Link>
                                 </Button>

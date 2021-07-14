@@ -42,8 +42,8 @@ const Login = (props) => {
             marginBottom: "1rem",
           },
           padding: {
-            paddingTop: "1rem",
-            paddingBottom: "1rem",
+            paddingTop: "0.5rem",
+            paddingBottom: "0.5rem",
           },
           alignCenter: {
             justifyContent: "center",
@@ -54,7 +54,7 @@ const Login = (props) => {
 
     return ( <>
         <Container>
-            <Grid container spacing={2}>
+            <Grid container justify="center" spacing={2}>
                 {/* carousel */}
                 <Grid item sm={5}>
                     <Paper className={classes.carousal}>Carousel</Paper>
@@ -71,6 +71,7 @@ const Login = (props) => {
                                 type="email"
                                 variant="outlined"
                                 value={email}
+                                className={classes.mb}
                                 size="small"
                                 onChange={(e)=>setEmail(e.target.value)}
                             ></TextField>
@@ -98,7 +99,7 @@ const Login = (props) => {
                         <Typography style={{textAlign: "center"}}> 
                                 Don't have an account ?
                                 <Button variant="text" color="primary">
-                                    <Link style={{color:"blue"}} to="/signup">
+                                    <Link style={{color:"blue", textDecoration: "none"}} to="/signup">
                                         SignUp
                                     </Link>
                                 </Button>
