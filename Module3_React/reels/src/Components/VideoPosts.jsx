@@ -4,23 +4,50 @@ import { Card, CardHeader, CardActions, CardContent, CardMedia, Button, makeStyl
 
 const VideoPosts = (props) => {
     const [userObjOfThisPostObj, setUser] = useState(null);
+    const [commentList, setCommentList] = useState([]);
 
-    useEffect(() => {
+    useEffect(async () => {
         console.log(props);
         let uid = props.postObj.uid;
-        firebaseDB.collection("users").doc(uid).get().then((doc) => {
-            setUser(doc.data());
-        });
+        let doc = await firebaseDB.collection("users").doc(uid).get();
+        let user = doc.data();
+        let commentList = props.postObj.comments;//[{uid, comment}, {uid, comment}]
+
+        let updatedCommentsList = [];//[{profileImageUrl, comment}, {profileImageUrl, comment} ]
+
+        for (let i = 0; i < commentList.length; i++) {
+            let objOfCurrComment = commentList[i];
+            let doc = await firebaseDB.collection("users").doc(uid).get();
+            let commentUserPic = doc.data().profileImageUrl;
+            updatedCommentsList.push({ commentUserPic: commentUserPic, comment: objOfCurrComment.comment });
+        }
+
+        setUser(user);
+        setCommentList(updatedCommentsList);
     }, []);
 
     return (
         <Container>
-            <Card style={{ height: "600px", width: "300px" }}>
+            <Card style={{ height: "600px", width: "600px" }}>
                 <Avatar src={userObjOfThisPostObj ? userObjOfThisPostObj.profileImageUrl : ""}></Avatar>
                 <Typography variant="span">{userObjOfThisPostObj ? userObjOfThisPostObj.username : ""}</Typography>
                 <div className="video-container">
                     <Video src={props.postObj.videoLink}></Video>
                 </div>
+                <Typography variant="p">Comments</Typography>
+                <TextField variant="outlined" label="Add a comment" size="small"></TextField>
+                <Button variant="contained" color="secondary">Post</Button>
+
+                {
+                    commentList.map((currCommentObj)=>{
+                        return (<>
+                            <Avatar src={currCommentObj.commentUserPic}></Avatar>
+                            <Typography variant="p">{currCommentObj.comment}</Typography>
+                            </>
+                        )
+                    })
+                }
+
             </Card>
         </Container>
     );
@@ -30,7 +57,7 @@ function Video(props) {
     return (
         <video
             style={{
-                height: "80vh",
+                height: "30vh",
                 margin: "5rem",
                 border: "1px solid black"
             }}
