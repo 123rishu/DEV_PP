@@ -99,12 +99,6 @@ const Feeds = (props) => {
 
     useEffect(() => {
         //GET ALL THE POSTS
-        // get all documents of a collection in firebase
-        //   db.collection('documents')
-        // .get()
-        // .then(querySnapshot => {
-        //   const documents = querySnapshot.docs.map(doc => doc.data())
-        //   // do something with documents
         firebaseDB
             .collection("posts")
             .get()
