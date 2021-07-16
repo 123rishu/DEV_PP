@@ -1,10 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { firebaseDB } from "../config/firebase";
 import { Card, CardHeader, CardActions, CardContent, CardMedia, Button, makeStyles, Typography, TextField, Avatar, Container } from "@material-ui/core";
+import { AuthContext } from "../context/AuthProvider";
 
 const VideoPosts = (props) => {
     const [userObjOfThisPostObj, setUser] = useState(null);
     const [commentList, setCommentList] = useState([]);
+    const [currComment, setComment] = useState("");
+    const { currUser } = useContext(AuthContext);
+
+    async function handlePostAComment(){
+        let uidOfCurrLiveUser = currUser.uid;
+        let doc = await firebaseDB.collection("users").doc(uidOfCurrLiveUser).get();
+        let dataObjOfCurrLiveUser = doc.data();
+        let profilePicUrlOfLiveUser = dataObjOfCurrLiveUser.profileImageUrl;
+
+        //updated comment list for db 
+        let lastestCommentObj = {
+            uid: uidOfCurrLiveUser,
+            comment: currComment,
+        }
+
+        let pidOfCurrPostObj = props.postObj.pid;
+        let doc2 = await firebaseDB.collection("posts").doc(pidOfCurrPostObj).get();
+        let document = doc2.data();
+
+        document.comments.push(lastestCommentObj);
+
+        await firebaseDB.collection("posts").doc(pidOfCurrPostObj).set(document);
+
+        //updated comment list for this component [{profilePic, Comment}]
+        let updatedCommentsList = commentList;
+        updatedCommentsList.push({ commentUserPic: profilePicUrlOfLiveUser, comment: currComment });
+        setComment("");
+        setCommentList(updatedCommentsList);
+    }
 
     useEffect(async () => {
         console.log(props);
@@ -35,15 +65,22 @@ const VideoPosts = (props) => {
                     <Video src={props.postObj.videoLink}></Video>
                 </div>
                 <Typography variant="p">Comments</Typography>
-                <TextField variant="outlined" label="Add a comment" size="small"></TextField>
-                <Button variant="contained" color="secondary">Post</Button>
+                <TextField
+                    label="Add a comment"
+                    type="text"
+                    variant="outlined"
+                    value={currComment}
+                    size="small"
+                    onChange={(e) => setComment(e.target.value)}
+                ></TextField>
+                <Button variant="contained" color="secondary" onClick={handlePostAComment}>Post</Button>
 
                 {
-                    commentList.map((currCommentObj)=>{
+                    commentList.map((currCommentObj) => {
                         return (<>
                             <Avatar src={currCommentObj.commentUserPic}></Avatar>
                             <Typography variant="p">{currCommentObj.comment}</Typography>
-                            </>
+                        </>
                         )
                     })
                 }
@@ -57,7 +94,7 @@ function Video(props) {
     return (
         <video
             style={{
-                height: "30vh",
+                height: "3vh",
                 margin: "5rem",
                 border: "1px solid black"
             }}

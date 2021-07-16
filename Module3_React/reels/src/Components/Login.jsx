@@ -108,31 +108,6 @@ const Login = (props) => {
                 </Grid>
             </Grid>
         </Container>
-
-        {/* <h1>Login Page</h1>
-        
-        <div>
-            Email
-            <input 
-            type="text"
-            value={email}
-            onChange={(e)=>{setEmail(e.target.value);}}
-             />
-        </div>
-
-        <div>
-            Password
-            <input 
-            type="text"
-            value={password}
-            onChange={(e)=>{setPassword(e.target.value);}} 
-            />
-        </div>
-
-        <button onClick={handleLogin}>Login</button>
-
-        <h2 style={{color:"red"}}>{message}</h2> */}
-
         </>
      );
 }
