@@ -21,13 +21,15 @@ const VideoPosts = (props) => {
             comment: currComment,
         }
 
-        let pidOfCurrPostObj = props.postObj.pid;
-        let doc2 = await firebaseDB.collection("posts").doc(pidOfCurrPostObj).get();
-        let document = doc2.data();
+        // let pidOfCurrPostObj = props.postObj.pid;
+        let postObj = props.postObj;
+        let commentsOfPostObj = postObj.comments;
+        // let doc2 = await firebaseDB.collection("posts").doc(pidOfCurrPostObj).get();
+        // let document = doc2.data();
+        commentsOfPostObj.push(lastestCommentObj);
+        // document.comments.push(lastestCommentObj);
 
-        document.comments.push(lastestCommentObj);
-
-        await firebaseDB.collection("posts").doc(pidOfCurrPostObj).set(document);
+        await firebaseDB.collection("posts").doc(postObj.pid).set(postObj);
 
         //updated comment list for this component [{profilePic, Comment}]
         let updatedCommentsList = commentList;
@@ -47,7 +49,7 @@ const VideoPosts = (props) => {
 
         for (let i = 0; i < commentList.length; i++) {
             let objOfCurrComment = commentList[i];
-            let doc = await firebaseDB.collection("users").doc(uid).get();
+            let doc = await firebaseDB.collection("users").doc(objOfCurrComment.uid).get();
             let commentUserPic = doc.data().profileImageUrl;
             updatedCommentsList.push({ commentUserPic: commentUserPic, comment: objOfCurrComment.comment });
         }
@@ -94,7 +96,7 @@ function Video(props) {
     return (
         <video
             style={{
-                height: "3vh",
+                height: "20vh",
                 margin: "5rem",
                 border: "1px solid black"
             }}

@@ -1,0 +1,94 @@
+<Container>
+                <Grid container justify="center" spacing={2}>
+                    {/* carousel */}
+                    <Grid item sm={4} md={4} lg={4}>
+                        <Card variant="outlined" className={classes.mb}>
+                            <CardMedia
+                                image={logo}
+                                style={{ height: "5rem", backgroundSize: "contain" }}
+                            ></CardMedia>
+                            <Typography style={{ textAlign: "center", color: "gray" }}>
+                                Signup to see photos and videos from your friends.
+                            </Typography>
+                            <CardContent className={classes.centerElements}>
+                                <TextField
+                                    label="Email"
+                                    type="email"
+                                    variant="outlined"
+                                    value={email}
+                                    size="small"
+                                    className={classes.mb}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                ></TextField>
+                                <TextField
+                                    label="Password"
+                                    type="password"
+                                    variant="outlined"
+                                    value={password}
+                                    size="small"
+                                    className={classes.mb}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                ></TextField>
+                                <TextField
+                                    label="Full Name"
+                                    type="text"
+                                    variant="outlined"
+                                    value={username}
+                                    size="small"
+                                    onChange={(e) => setUsername(e.target.value)}
+                                ></TextField>
+                            </CardContent>
+                            <CardActions>
+                                <input
+                                    accept="image/*"
+                                    // className={classes.input}
+                                    style={{ display: 'none' }}
+                                    id="raised-button-file"
+                                    className={classes.fullWidth}
+                                    onChange={(e) => {
+                                        handleFileSubmit(e);
+                                    }}
+                                    multiple
+                                    type="file"
+                                />
+                                <label htmlFor="raised-button-file" className={classes.fullWidth}>
+                                    <Button 
+                                    variant="outlined" 
+                                    onClick={handleUploadClick}
+                                    color={flag ? "secondary" : "primary"}
+                                    startIcon={flag ? <CloudUploadIcon></CloudUploadIcon> : <CloudDoneIcon></CloudDoneIcon>} 
+                                    component="span"
+                                    className={classes.fullWidth}
+                                    >
+                                        Upload Profile Image
+                                    </Button>
+                                </label>
+                            </CardActions>
+                            <CardActions>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    // onClick={handleLogin}
+                                    onClick={handleSignUp}
+                                    className={classes.fullWidth}
+                                >
+                                    SignUp
+                                </Button>
+                            </CardActions>
+                            <Typography style={{ textAlign: "center" }}>
+                                By signing up, you agree to our Terms, Data Policy and Cookies Policy
+                            </Typography>
+                        </Card>
+                        <Card variant="outlined" className={classes.padding}>
+                            <Typography style={{ textAlign: "center" }}>
+                                Have an account ?
+                                <Button variant="text" color="primary">
+                                    <Link style={{ color: "blue", textDecoration: "none" }} to="/login">
+                                        Log In
+                                    </Link>
+                                </Button>
+                            </Typography>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </Container>

@@ -67,6 +67,9 @@ const Feeds = (props) => {
         }
     }
 
+    let pid = uuidv4();
+                console.log(pid);
+
     let conditionObject = {
         root: null, //observe from whole page
         threshold: "0.8", //80%
