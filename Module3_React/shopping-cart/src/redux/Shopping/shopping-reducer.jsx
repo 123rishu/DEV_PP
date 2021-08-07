@@ -43,6 +43,49 @@ const INITIAL_STATE = {
 }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
+  if(action.type == "SET_CURRENT"){
+    return {
+      ...state,
+      currentItem: action.payload,
+    }
+  }
+  else if(action.type == "ADD_TO_CART"){
+    if(state.cart.length){
+      let isPresent = false;
+      let updatedCart = state.cart.map((curr) => {
+          if(curr.id == action.payload.id){
+            isPresent = true;
+            return { ...curr, qty: curr.qty+1 }
+          }
+          else{
+              return curr;
+          }
+      })
+
+      if(isPresent == false){
+        updatedCart.push({ ...action.payload, qty: 1 });
+      }
+
+      return {
+        ...state, 
+        cart : updatedCart,
+      }
+    }
+    else{
+      return {
+        ...state,
+        cart: [{...action.payload, qty : 1}]
+      }
+    }
+      
+
+      // cart length is empty => then add current product to cart
+
+      //cart length is not empty, but our product is not in that, then add our product with qty zero
+
+      //cart length is not empty, and our product is already inside, then only inc its qty by 1
+
+  }
     return state;
 }
  
