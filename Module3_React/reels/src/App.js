@@ -4,7 +4,7 @@ import {
   Redirect,
   Route,
   Switch
-} from "react-router-dom"
+} from "react-router-dom";
 import Feeds from './Components/Feeds';
 import Header from './Components/Header';
 import Login from './Components/Login';
