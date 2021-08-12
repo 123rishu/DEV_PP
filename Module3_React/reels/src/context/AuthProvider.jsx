@@ -3,18 +3,34 @@ import { firebaseAuth } from '../config/firebase';
 
 export const AuthContext = React.createContext();
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
     const [currUser, setCurrUser] = useState(null);
 
-    function login(email, password){
+    function login(email, password) {
         return firebaseAuth.signInWithEmailAndPassword(email, password);
     }
 
-    function signOut(){
+    function signOut() {
         return firebaseAuth.signOut();
     }
 
-    function signUp(email, password){
+    function logout() {
+        return firebaseAuth.signOut()
+    }
+
+    function resetPassword(email) {
+        return firebaseAuth.sendPasswordResetEmail(email)
+    }
+
+    function updateEmail(email) {
+        return currUser.updateEmail(email)
+    }
+
+    function updatePassword(password) {
+        return currUser.updatePassword(password)
+    }
+
+    function signUp(email, password) {
         return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
 
@@ -29,14 +45,18 @@ export const AuthProvider = ({children}) => {
         currUser: currUser,
         signOut: signOut,
         login: login,
+        logout: logout,
         signUp: signUp,
+        resetPassword: resetPassword,
+        updateEmail: updateEmail,
+        updatePassword: updatePassword,
     }
 
-    return ( 
+    return (
         <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
 
-     );
+    );
 }
- 
+

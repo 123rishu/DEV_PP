@@ -3,8 +3,11 @@ import { AuthContext } from '../context/AuthProvider';
 import { Button } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { firebaseDB, firebaseStorage } from "../config/firebase";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { v4 as uuidv4 } from 'uuid';
 import VideoPosts from './VideoPosts';
+import './Feeds.css';
+import UploadFile from './uploadFile';
 
 const Feeds = (props) => {
     const { currUser } = useContext(AuthContext);
@@ -68,7 +71,7 @@ const Feeds = (props) => {
     }
 
     let pid = uuidv4();
-                console.log(pid);
+    console.log(pid);
 
     let conditionObject = {
         root: null, //observe from whole page
@@ -102,10 +105,11 @@ const Feeds = (props) => {
 
     useEffect(() => {
         //GET ALL THE POSTS
+        //onSnapshot => listens for changes on the collection
         firebaseDB
             .collection("posts")
-            .get()
-            .then((snapshot) => {
+            .orderBy("createdAt", "desc")
+            .onSnapshot((snapshot) => {
                 let allPosts = snapshot.docs.map((doc) => {
                     return doc.data();
                 });
@@ -114,35 +118,29 @@ const Feeds = (props) => {
     }, []);
 
     return (
-        <div>
-            <h1>Feeds</h1>
-            <button onClick={handleLogOut}>Logout</button>
+        <>
+            {/* This check is important because without this the condition that we are using in our likes
+        component will always give us a false value as that component will be rendered withput any user data
+        so there will not be any id to compare to */}
+            {posts == null ? <CircularProgress /> :
+                <>
 
-            <div className="uploadVideo">
-                <div>
-                    <input type="file" onChange={handleInputFile} />
-                    <label>
-                        <Button
-                            onClick={handleUploadFile}
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<PhotoCamera></PhotoCamera>}
-                        >
-                            Upload Video
-                        </Button>
-                    </label>
-                </div>
-            </div>
+                    <div className='portion' style={{ height: '9.5vh' }}></div>
 
-            <div className="feeds-video-list">
-                {
-                    posts.map((currPostObj) => {
-                        return <VideoPosts key={currPostObj.pid} postObj={currPostObj}></VideoPosts>
-                    })
-                }
-            </div>
+                    <div className='feed-container'>
+                        <div className='center'>
+                            <UploadFile></UploadFile>
+                            {
+                                posts.map((currPostObj) => {
+                                    return <VideoPosts key={currPostObj.pid} postObj={currPostObj}></VideoPosts>
+                                })
+                            }
+                        </div>
 
-        </div>
+
+                    </div>
+                </>}
+        </>
     );
 }
 
