@@ -51,7 +51,7 @@ const Signup = (props) => {
 
     const handleUploadClick = () => {
         setFlag(!flag);
-      };
+    };
 
 
     const handleFileSubmit = (e) => {
@@ -108,8 +108,8 @@ const Signup = (props) => {
     }
 
     return (
-        <div>
-            
+        <div style={{marginTop: '150px'}}>
+
             <Container>
                 <Grid container justify="center" spacing={2}>
                     {/* carousel */}
@@ -164,12 +164,12 @@ const Signup = (props) => {
                                     type="file"
                                 />
                                 <label htmlFor="raised-button-file" className={classes.fullWidth}>
-                                    <Button 
-                                    variant="outlined"              
-                                    color={flag ? "secondary" : "primary"}
-                                    startIcon={flag ? <CloudUploadIcon></CloudUploadIcon> : <CloudDoneIcon></CloudDoneIcon>} 
-                                    component="span"
-                                    className={classes.fullWidth}
+                                    <Button
+                                        variant="outlined"
+                                        color={flag ? "secondary" : "primary"}
+                                        startIcon={flag ? <CloudUploadIcon></CloudUploadIcon> : <CloudDoneIcon></CloudDoneIcon>}
+                                        component="span"
+                                        className={classes.fullWidth}
                                     >
                                         Upload Profile Image
                                     </Button>
@@ -203,7 +203,7 @@ const Signup = (props) => {
                     </Grid>
                 </Grid>
             </Container>
-            
+
 
 
             {/* <h1>SignUp Page</h1>
