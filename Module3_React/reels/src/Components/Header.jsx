@@ -86,7 +86,7 @@ const Header = (props) => {
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const { logout, currUser } = useContext(AuthContext);
     console.log(currUser);
-    
+
 
     const handleNavigation = () => {
         var win = window.open('https://www.pepcoding.com/', '_blank');
@@ -99,7 +99,7 @@ const Header = (props) => {
 
     const handleProfile = () => {
         //  console.log(currUser)
-        if(currUser != null){
+        if (currUser != null) {
             history.push(`/profile/${currUser.uid}`)
         }
     }
@@ -108,8 +108,8 @@ const Header = (props) => {
         history.push("/login")
     }
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleProfileMenuOpen = (e) => {
+        setAnchorEl(e.target);
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -135,7 +135,7 @@ const Header = (props) => {
             console.log(profilePicUrlOfLiveUser);
             setUserPicUrl(profilePicUrlOfLiveUser);
         }
-        else{
+        else {
             setUserPicUrl("");
         }
     }, [currUser])
