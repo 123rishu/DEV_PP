@@ -120,7 +120,10 @@ const UploadFile = () => {
                             type="file"
                             id="icon-button-file"
                             onChange={onChange}
-                            style={{ display: "none", }}
+                            style={{
+                                display: "none",
+                                
+                            }}
                         />
                         <label htmlFor="icon-button-file">
                             <Button
