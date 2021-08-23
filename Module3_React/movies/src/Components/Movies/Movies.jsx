@@ -13,8 +13,7 @@ class Movies extends Component {
           moviesData.map(function(currMovieObj){
             return <Movie 
             key={currMovieObj.id} 
-            myLikedMovies={myLikedMovies} 
-            movie={currMovieObj}
+            movieObject={currMovieObj}
             ></Movie>
           })
         }

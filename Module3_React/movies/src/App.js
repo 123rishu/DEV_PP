@@ -1,29 +1,75 @@
-import React, { Component } from "react";
+import React, { useContext, useState, useEffect } from 'react';
 import Header from "./Components/Header/Header.jsx";
 import Movies from "./Components/Movies/Movies.jsx";
 import Pagination from "./Components/Pagination/Pagination.jsx";
 import axios from "axios";
+import Login from "./Components/Login/Login";
+import Signup from "./Components/Signup/Signup";
 import Favourites from "./Components/Favourites/Favourites.jsx";
 import MoviePage from "./Components/MoviePage/MoviePage.jsx";
 import { API_KEY, API_URL, IMAGE_URL } from "./API/secrets.js";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { AuthContext } from "./context/AuthProvider";
 
+const App = () => {
+  let [moviesData, setMoviesData] = useState([]);
+  let [currentMovie, setCurrentMovie] = useState("avengers");
+  let [pages, setPages] = useState([]);
+  let [currentPage, setCurrentPage] = useState(1);
+  let [myLikedMovies, setMyLikedMovies] = useState([]);
+  let { currUser } = useContext(AuthContext);
 
-class App extends Component {
-  state = { 
-    moviesData: [],
-    currentMovie: "avengers",
-    pages:[],
-    currentPage: 1,
-    myLikedMovies: [],
-   };
+  const setMovies = async (newMovieName) => {
+    // https://api.themoviedb.org/3/search/movie?api_key=22c80894f6d873434847bec78664b84b&query=Avenger&page=1
+    let dataFromSearch = await axios.get(API_URL + "/search/movie", {
+      params: { api_key: API_KEY, page: 1, query: newMovieName },
+    });
+    let totalNoOfPages = dataFromSearch.data.total_pages;
+    let pages = [];
+    for (let i = 1; i <= totalNoOfPages; i++) {
+      pages.push(i);
+    }
+    let moviesData = dataFromSearch.data.results.slice(0, 10);
+    if (currUser != null) {
+      setMoviesData(moviesData);
+      setCurrentMovie(newMovieName);
+      setPages(pages);
+    }
+  }
 
-   async componentDidMount(){
+  const previousPage = async () => {
+    let data = await axios.get(API_URL + "/search/movie", {
+      params: { api_key: API_KEY, page: currentPage - 1, query: currentMovie },
+    });
+    let moviesData = data.data.results.slice(0, 10);
+    setMoviesData(moviesData);
+    setCurrentPage(currentPage - 1);
+  }
+
+  const nextPage = async () => {
+    let data = await axios.get(API_URL + "/search/movie", {
+      params: { api_key: API_KEY, page: currentPage + 1, query: currentMovie },
+    });
+    let moviesData = data.data.results.slice(0, 10);
+    setMoviesData(moviesData);
+    setCurrentPage(currentPage + 1);
+  }
+
+  const setPage = async (currentPageCount) => {
+    let data = await axios.get(API_URL + "/search/movie", {
+      params: { api_key: API_KEY, page: currentPageCount, query: currentMovie },
+    });
+    let moviesData = data.data.results.slice(0, 10);
+    setMoviesData(moviesData);
+    setCurrentPage(currentPageCount);
+  }
+
+  useEffect(async () => {
     //API CALL
     //params -> key, page, query
     //https://api.themoviedb.org/3/search/movie?api_key=22c80894f6d873434847bec78664b84b&query=Avenger&page=1
-    let data = await axios.get(API_URL+"/search/movie" , { 
-      params: {api_key: API_KEY, page: 1, query:this.state.currentMovie } 
+    let data = await axios.get(API_URL + "/search/movie", {
+      params: { api_key: API_KEY, page: 1, query: currentMovie }
     });
 
     let moviesData = data.data.results.slice(0, 10);
@@ -32,101 +78,53 @@ class App extends Component {
     for (let i = 1; i <= pagesCount; i++) {
       pages.push(i);
     }
-    this.setState({
-      moviesData: moviesData,
-      pages: pages,
-    });
-  }
 
-  setMovies = async(newMovieName) => {
-    // https://api.themoviedb.org/3/search/movie?api_key=22c80894f6d873434847bec78664b84b&query=Avenger&page=1
-      let dataFromSearch = await axios.get(API_URL + "/search/movie", {
-        params: {api_key: API_KEY, page: 1, query:newMovieName }, 
-      });
-      let totalNoOfPages = dataFromSearch.data.total_pages;
-      let pages = [];
-      for(let i=1;i<=totalNoOfPages;i++){
-        pages.push(i);
-      }
-      let moviesData = dataFromSearch.data.results.slice(0, 10);
-      this.setState({
-        moviesData:moviesData,
-        currentMovie:newMovieName,
-        pages:pages,
-      })
-  }
+    setMoviesData(moviesData);
+    setPages(pages);
+  }, [])
 
-  previousPage = async () => {
-    let data = await axios.get(API_URL + "/search/movie", {
-      params: {api_key: API_KEY, page: this.state.currentPage-1, query:this.state.currentMovie }, 
-    });
-    let moviesData = data.data.results.slice(0, 10);
-    this.setState({
-      moviesData:moviesData,
-      currentPage:this.state.currentPage-1
-    });
-  }
+  return (
+    <Router>
+      <div className="App">
+        <Header setMovies={setMovies} myLikedMovies={myLikedMovies}></Header>
+        <Switch>
+          {currUser ? (
+            <>
+              <Route path="/" exact>
+                {moviesData.length ? (
+                  <React.Fragment>
+                    <Movies
+                      movies={moviesData}
+                      myLikedMovies={myLikedMovies}
+                    ></Movies>
+                    <Pagination
+                      pages={pages}
+                      currentPage={currentPage}
+                      previousPage={previousPage}
+                      nextPage={nextPage}
+                      setPage={setPage}
+                    ></Pagination>
+                  </React.Fragment>
+                ) : (
+                  <h1>Oops No Movies found</h1>
+                )
+                }
+              </Route>
+              <Route path="/fav" exact component={Favourites}></Route>
+              <Route path="/moviepage/:id" exact component={MoviePage}></Route>
+              <Redirect to="/"></Redirect>
+            </>
+          ) : (
+            <>
+              <Route path="/login" component={Login} exact></Route>
+              <Route path="/signup" component={Signup} exact></Route>
+              <Redirect to="/login"></Redirect>
+            </>
+          )}
+        </Switch>
+      </div>
+    </Router>
+  );
+};
 
-  nextPage = async () => {
-    let data = await axios.get(API_URL + "/search/movie", {
-      params: {api_key: API_KEY, page: this.state.currentPage+1, query:this.state.currentMovie }, 
-    });
-    let moviesData = data.data.results.slice(0, 10);
-    this.setState({
-      moviesData:moviesData,
-      currentPage:this.state.currentPage+1
-    });
-  }
-
-  setPage = async (currentPageCount) => {
-    let data = await axios.get(API_URL + "/search/movie", {
-      params: {api_key: API_KEY, page: currentPageCount, query:this.state.currentMovie }, 
-    });
-    let moviesData = data.data.results.slice(0, 10);
-    this.setState({
-      moviesData:moviesData,
-      currentPage:currentPageCount
-    });
-  }
-
-  render() { 
-    return ( 
-        <Router>
-        <div className="App">
-            <Header setMovies={this.setMovies} myLikedMovies={this.state.myLikedMovies}></Header>
-            <Switch>
-
-                <Route path="/" exact>
-                    {/* condition rendering */}
-                    {this.state.moviesData.length ? (
-                      <React.Fragment>
-                          <Movies 
-                            movies={this.state.moviesData}
-                            myLikedMovies={this.state.myLikedMovies}
-                          ></Movies>
-                          <Pagination
-                              pages={this.state.pages}
-                              currentPage={this.state.currentPage}
-                              previousPage = {this.previousPage}
-                              nextPage = {this.nextPage}
-                              setPage = {this.setPage}
-                          ></Pagination>
-                      </React.Fragment>
-                    ) : (
-                      <h1>Oops No Movies found</h1>
-                    )
-                    }
-                </Route>
-
-                <Route path="/fav" exact  component={Favourites}></Route>
-
-                <Route path="/moviepage" exact component={MoviePage}></Route>  
-
-            </Switch> 
-          </div> 
-        </Router>
-    );
-  }
-}
-
-export default App;
+export default App;  

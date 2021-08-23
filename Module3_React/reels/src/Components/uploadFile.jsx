@@ -16,7 +16,6 @@ const UploadFile = () => {
     const { currUser } = useContext(AuthContext);
     const types = ['video/mp4', 'video/webm', 'video/ogg'];
 
-
     const onChange = (e) => {
         const file = e.target.files[0];
 
@@ -122,7 +121,7 @@ const UploadFile = () => {
                             onChange={onChange}
                             style={{
                                 display: "none",
-                                
+
                             }}
                         />
                         <label htmlFor="icon-button-file">
