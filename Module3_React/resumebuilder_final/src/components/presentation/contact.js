@@ -18,7 +18,6 @@ function Contact(props) {
        }
    }, [])
   
- 
   const onchange=(event)=>{
         var key =event.target.name;
         var val =event.target.value;

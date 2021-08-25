@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../static/images/logo.png";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as authActions from '../../actions/authActions';
 import { isLoaded, isEmpty } from "react-redux-firebase";
 import { useSelector } from "react-redux";
@@ -10,13 +10,13 @@ function LoggesOut(props) {
     <ul>
       <li className="signup ">
         <NavLink className=" btnv-1" to="/register">
-        Register
+          Register
         </NavLink>
       </li>
-      <li className="signin"> 
+      <li className="signin">
         <NavLink className="text-blue btnv-3" to="/login">
-        Sign In
-        </NavLink>         
+          Sign In
+        </NavLink>
       </li>
     </ul>
   )
@@ -24,63 +24,66 @@ function LoggesOut(props) {
 
 const Header = (props) => {
   const auth = useSelector(state => state.firebase.auth);
-  const handleLogOut=()=>{
-  props.signOut();
+  
+  const handleLogOut = () => {
+    props.signOut();
   }
-  console.log(props); 
-  return (  
-  <header className="header">
-  <nav className="nav">
-      <a href="/" className="holder-logo">
-        <img className='logo' src={logo}></img>
-      </a> 
+
+  console.log(props);
+
+  return (
+    <header className="header">
+      <nav className="nav">
+        <a href="/" className="holder-logo">
+          <img className='logo' src={logo}></img>
+        </a>
         <div className="header-links full-height">
 
-        { isLoaded(auth) && !isEmpty(auth) ?<>
+          {isLoaded(auth) && !isEmpty(auth) ? <>
 
-          <ul>
-            <li className="signin ">
-              <NavLink className="  " to="/">
-               Logged in as {auth.email}
-              </NavLink>
-            </li>
-            <li className="signin"> 
-              <button className="text-blue btnv-3" onClick={handleLogOut}>
-             Signout
-              </button>         
-            </li>
-          </ul>
+            <ul>
+              <li className="signin ">
+                <NavLink className="  " to="/">
+                  Logged in as {auth.email}
+                </NavLink>
+              </li>
+              <li className="signin">
+                <button className="text-blue btnv-3" onClick={handleLogOut}>
+                  Signout
+                </button>
+              </li>
+            </ul>
 
-        </>:<LoggesOut></LoggesOut>}
-          
+          </> : <LoggesOut></LoggesOut>}
+
           <ul id="nav-mid">
             <li>
-            <NavLink className="btn-nvt-gm" to="/resume-templates">
-            Resume Templates
-            </NavLink>
-            </li> 
-            <li className="holder-pricing">            
-              <NavLink className="btn-nvt-gm" to="/about-us">
-              About Us
+              <NavLink className="btn-nvt-gm" to="/resume-templates">
+                Resume Templates
               </NavLink>
-            </li>        
+            </li>
+            <li className="holder-pricing">
+              <NavLink className="btn-nvt-gm" to="/about-us">
+                About Us
+              </NavLink>
+            </li>
           </ul>
-            
-      </div>   
-    </nav>
-  </header>
+
+        </div>
+      </nav>
+    </header>
 
   );
 };
 
-const mapStateToProps=(state)=>{
-  return{
-     auth: state.firebase.auth
-  }
-}
-const mapDispatchToProps= (dispatch)=>{
+const mapStateToProps = (state) => {
   return {
-   signOut:()=>dispatch(authActions.signout())
+    auth: state.firebase.auth
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(authActions.signout())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
