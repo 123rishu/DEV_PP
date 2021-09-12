@@ -1,11 +1,17 @@
 import java.util.*;
 
 public class PasswordChecker {
+
+    static int count = 0;
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Enter any password to check!!");
-        String str = s.nextLine();
-        passwordCheck(str);
+        if(count < 3){
+            count++;
+            main(null);
+        }
+        else{
+            return;
+        }
+        System.out.print(count);
     }
 
     public static void passwordCheck(String str) {
