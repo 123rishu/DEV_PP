@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {DB_LINK} = require("../secrets");
+const {DB_LINK} = require("../secrets2");
 const emailValidator = require("email-validator");
 
 //Create a model and add entries inside it using mongodb

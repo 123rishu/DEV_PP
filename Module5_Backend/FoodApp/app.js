@@ -15,16 +15,16 @@ app.use("/api/auth", authRouter);
 
 userRouter
     .route("/")
-    .get(getUser)
+    .get(getUsers)
     .post(createUser)
+userRouter
+    .route("/:id")
+    .get(getUserById)
     .patch(updateUser)
     .delete(deleteUser)
-userRouter
-    .route(":/id")
-    .get(getUserById)
 authRouter
     .post("/signup", setCreatedAt, signupUser)
-// .post("/login", loginUser);
+    .post("/login", loginUser);
 
 //database
 // let user = [];
@@ -81,6 +81,46 @@ async function signupUser(req, res) {
 
 // let user = {};
 
+async function loginUser(req, res) {
+    try {
+        //Ye posted user ka object ayega
+        let loginUserObject = req.body;
+        console.log(loginUserObject)
+        if (loginUserObject.email) {
+            //ye hum db se object nikal ke layenge, posted object ke email nam ke according
+            let user = await userModel.findOne({ "email": loginUserObject.email });
+            if (user) {
+                if (user.password == loginUserObject.password) {
+                    return res.status(200).json({
+                        user,
+                        "message": "user logged in "
+                    })
+                }
+                else {
+                    return res.status(401).json({
+                        "message": "Email or password is wrong"
+                    })
+                }
+            }
+            else {
+                return res.status(401).json({
+                    "message": "Email or password is wrong"
+                })
+            }
+        }
+        else {
+            return res.status(403).json({
+                "message": "Email is not present",
+            })
+        }
+    }
+    catch (err) {
+        res.status(500).json({
+            message: err.message,
+        })
+    }
+}
+
 app.get("/", function (req, res) {
     console.log("hello from home page");
     res.send("<h1>Hello form Backend</h1>");
@@ -91,25 +131,74 @@ function createUser(req, res) {
     user = req.body;
     res.status(200).send("data received and user added");
 }
-function getUser(req, res) {
-    console.log("users");
-    //for sending key value pair
-    res.json(user);
-}
-function getUserById(req, res) {
-    console.log(req.params.id);
-    res.status(200).send("Hello");
-}
-function deleteUser(req, res) {
-    user = {};
-    res.status(200).json(user);
-}
-function updateUser(req, res) {
-    let obj = req.body;
-    for (let key in obj) {
-        user[key] = obj[key];
+async function getUsers(req, res) {
+    try {
+        let users = await userModel.find({});
+        res.status(200).json({
+            "message": "List of all the Users",
+            users: users,
+        })
     }
-    res.status(200).json(user);
+    catch (err) {
+        res.status(500).json({
+            error: err.message,
+            "message": "Can't get users",
+        })
+    }
+}
+async function getUserById(req, res) {
+    try{
+        let id = req.params.id;
+        let user = await userModel.findById(id);
+        res.status(200).json({
+            "message": "Got the user",
+            user: user,
+        })
+    }
+    catch(err){
+        res.status(500).json({
+            message: err.message,
+        })
+    }
+}
+//findByIdAndDelete
+async function deleteUser(req, res) {
+    try{
+        let id = req.params.id;
+        console.log(id);
+        let user = await userModel.findByIdAndDelete(id);
+        console.log(user);
+        res.status(200).json({
+            "message": "User info deleted",
+            user: user
+        })
+    }
+    catch(err){
+        res.status(500).json({
+            "message" : err.message,
+        })
+    }
+
+
+    // user = {};
+    // res.status(200).json(user);
+}
+//findByIdAndUpdate
+async function updateUser(req, res) {
+    try{
+        let id = req.params.id;
+        console.log(id);
+        let user = await userModel.findByIdAndUpdate(id, {name : "Sham S"});
+        res.status(200).json({
+            "message": "Details updated",
+            user: user
+        })
+    }
+    catch(err){
+        res.status(500).json({
+            "message": err.message
+        })
+    }
 }
 
 //create user in server
