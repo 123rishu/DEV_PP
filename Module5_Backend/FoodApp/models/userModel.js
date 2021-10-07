@@ -6,6 +6,7 @@ const emailValidator = require("email-validator");
 //Step-1
 //Forming a connection with database using Mongoose
 mongoose.connect(DB_LINK).then(function(db){
+    console.log("Connected to Database");
     console.log(db);
 }).catch(function (err){
     console.log("err", err);
