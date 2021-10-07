@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {DB_LINK} = require("../secrets");
+const {DB_LINK} = require("../secrets2");
 const emailValidator = require("email-validator");
 
 //Create a model and add entries inside it using mongodb
@@ -47,7 +47,9 @@ const plansSchema = new mongoose.Schema({
 
 //Step-3
 //Create a Model using mongoose
-const plansModel = mongoose.model("plansModel", userSchema);
+const plansModel = mongoose.model("plansModel", plansSchema);
+
+module.exports = plansModel;
 
 //Step-4
 //Inserting entries inside the model using mongoose
