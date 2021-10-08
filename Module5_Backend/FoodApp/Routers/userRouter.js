@@ -2,9 +2,11 @@ const userModel = require("../models/userModel");
 const mongoose = require("mongoose");
 const express = require("express");
 const userRouter = express.Router();
+const protectRoute = require("./authHelper");
+
 userRouter
     .route("/")
-    .get(getUsers)
+    .get(protectRoute, getUsers)
 userRouter
     .route("/:id")
     .get(getUserById)
@@ -16,6 +18,7 @@ userRouter
 async function getUsers(req, res) {
     try {
         let users = await userModel.find({});
+        console.log("I was here gteusers");
         res.status(200).json({
             "message": "List of all the Users",
             users: users,

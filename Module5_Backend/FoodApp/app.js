@@ -1,12 +1,14 @@
 const express = require("express");
 const userModel = require("./models/userModel");
 const plansModel = require("./models/plansModel");
+const cookieParser = require("cookie-parser");
 
 //server init
 const app = express();
 
 app.use(express.static('public'));
 app.use(express.json());
+app.use(cookieParser());
 //Mounting in express
 const userRouter = require("./Routers/userRouter");
 const authRouter = require("./Routers/authRouter");

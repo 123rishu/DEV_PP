@@ -1,6 +1,8 @@
 const userModel = require("../models/userModel");
 const mongoose = require("mongoose");
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const {JWT_KEY} = require("../secrets2");
 const authRouter = express.Router();
 authRouter
     .post("/signup", setCreatedAt, signupUser)
@@ -60,6 +62,14 @@ async function loginUser(req, res) {
             let user = await userModel.findOne({ "email": loginUserObject.email });
             if (user) {
                 if (user.password == loginUserObject.password) {
+                    //After validation, we send cookie in response for further validation
+                    //httpOnly ko true karne se edit nahi ho payegi cookie
+                    //Cookie ke liye ek unique token bhi create karna padega
+                    let payLoad = user["_id"];
+                    //Token creation
+                    let token = jwt.sign({id: payLoad}, JWT_KEY);
+                    res.cookie("jwt", token, {httpOnly: true});
+    
                     return res.status(200).json({
                         user,
                         "message": "user logged in "
