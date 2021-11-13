@@ -9,9 +9,9 @@ userRouter
     .get(protectRoute, getUsers)
 userRouter
     .route("/:id")
-    .get(getUserById)
+    .get(protectRoute, authorizeUser(["admin", "manager"]), getUserById)
     .patch(updateUser)
-    .delete(deleteUser)
+    .delete(protectRoute, authorizeUser(["admin"]), deleteUser)
 
 //---------------------------------------------------------------------------------------------//
 //USER'S METHODS
@@ -83,6 +83,22 @@ async function updateUser(req, res) {
         res.status(500).json({
             "message": err.message
         })
+    }
+}
+
+function authorizeUser(rolesArr) {
+    return async function (req, res, next) {
+        let uid = req.uid;
+        let { role } = await userModel.findById(uid);
+        let isAuthorized = rolesArr.includes(role);
+        if (isAuthorized) {
+            next();
+        } else {
+            res.status(403).json({
+                message: "user not authorized contact admin"
+            })
+        }
+
     }
 }
 //----------------------------------------------------------------------------------------------//

@@ -9,8 +9,9 @@ function protectRoute(req, res, next){
             console.log(req.cookies.jwt);
             //Then, check karenge, token ka signature using jwt method
             console.log("I was here protect");
-            let isVerified = jwt.verify(req.cookies.jwt, JWT_KEY);
-            if(isVerified){
+            let decrytptedToken = jwt.verify(req.cookies.jwt, JWT_KEY);
+            if(decrytptedToken){
+                req.uid = decrytptedToken.id;
                 next();
             }
         }

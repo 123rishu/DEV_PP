@@ -4,9 +4,12 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const {JWT_KEY} = require("../secrets2");
 const authRouter = express.Router();
+let emailSender = require("../externalServices/emailSender");
 authRouter
     .post("/signup", setCreatedAt, signupUser)
-    .post("/login", loginUser);
+    .post("/login", loginUser)
+    .post("/forgetPassword", forgetPassword)
+    .post("/resetPassword", resetPassword)
 
 //http://localhost:8080/api/auth/signup
 //ispar hit lagte hi pehle setCreatedAt chalega then signupUser
@@ -96,6 +99,88 @@ async function loginUser(req, res) {
     catch (err) {
         res.status(500).json({
             message: err.message,
+        })
+    }
+}
+async function forgetPassword(req, res){
+    let email = req.body.email;
+    //creating special code to send to email
+    let seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+    console.log(seq);
+    try{
+        if(email){
+            //first, update the person's obj with this mail id with special code
+            await userModel.updateOne({email}, { token: seq });
+
+            //to check, whether this person's obj get updated or not
+            let user = await userModel.findOne({ email });
+            await emailSender(seq);
+            console.log(user);
+
+            //agar user ke andar token mila toh kuch,varna kuch
+            if(user?.token){
+                return res.status(200).json({
+                    message: "Email send with token" + seq,
+                })
+            }
+            else{
+                return res.status(404).json({
+                    message: "User not found"
+                })
+            }
+        }
+        else{
+            res.status(400).json({
+                message: "Kindly enter email"
+            })
+        }
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({
+            message: err.message
+        })
+    }
+}
+async function resetPassword(req, res){
+    let {token, password, confirmPassword} = req.body;
+
+    try{
+        //token tru value honi chahiye, input token
+        if(token){
+            //ye token wale user ko db me find karke layenge
+            //then is user ka password change kardenge
+            let user = await userModel.findOne({ token });
+
+            if(user){
+                //user.resetHandler(password, confirmPassword)
+                user.password = password;
+                user.confirmPassword = confirmPassword;
+                //token reuse is not possible
+                user.token = undefined;
+                await user.save();
+                console.log(user);
+
+                res.status(200).json({
+                    message: "user password changed"
+                })
+            }
+            else{
+                return res.status(404).json({
+                    message: "incorrect token"
+                })
+            }
+        }
+        else{
+            return res.status(404).json({
+                message: "incorrect token"
+            })
+        }
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({
+            message: err.message
         })
     }
 }

@@ -43,8 +43,12 @@ const userSchema = new mongoose.Schema({
         },
         required: true
     },
-    createdAt: {
-        type: Date
+    createdAt: Date,
+    token : String,
+    role: {
+        type: String,
+        enum: ["admin", "user", "manager"],
+        default: "user"
     }
 })
 
@@ -54,6 +58,13 @@ userSchema.pre("save", function(){
     // database me confirm password save nahi hoga
     this.confirmPassword = undefined;
 })
+
+//document method
+//userSchema se created saare objects ke pass ye function available hoga
+userSchema.methods.resetHandler = function(password, confirmPassword){
+    this.password = password;
+    this.confirmPassword = confirmPassword;
+}
 
 //Step-3
 //Create a Model using mongoose
