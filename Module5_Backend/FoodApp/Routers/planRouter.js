@@ -18,19 +18,47 @@ plansRouter
 
 //----------------------------------------------------------------------------------------------//
 //Plans Methods
-async function getPlans(req, res){
-    try{
-        let plans = await plansModel.find({});
+// query params sql injection
+// localhost:8080/api/plan?select=name%price&page=1&sort=price&myquery={"price":{"$gt":200}}
+async function getPlans(req, res) {
+    try {
+        // console.log(req.query);
+        // sort,
+        // sort
+        // sort
+        // paginate
+        let ans = JSON.parse(req.query.myquery);
+        console.log("ans", ans);
+        let plansQuery = PlanModel.find(ans);
+        let sortField = req.query.sort;
+        let sortQuery = plansQuery.sort(`-${sortField}`);
+        let params = req.query.select.split("%").join(" ");
+        let fileteredQuery = sortQuery
+            .select(`${params} -_id`);
+        // pagination
+        // skip
+        // limit
+        let page = Number(req.query.page) || 1;
+        let limit = Number(req.query.limit) || 3;
+        let toSkip = (page - 1) * limit;
+        let paginatedResultPromise = fileteredQuery
+            .skip(toSkip)
+            .limit(limit);
+        let result = await paginatedResultPromise;
+        // PlanModel.sort().select()
+        // 
         res.status(200).json({
-            "message": "List of all plans",
-            plans: plans
+            "message": "list of all the Plans",
+            Plans: result
         })
-    }
-    catch(err){
+    } catch (err) {
         res.status(500).json({
-            message: err.message
+            error: err.message,
+            "message": "can't get Plans"
         })
     }
+
+    // for sending key value pair
 }
 async function createPlan(req, res){
     try{

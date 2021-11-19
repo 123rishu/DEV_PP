@@ -14,42 +14,40 @@ mongoose.connect(DB_LINK).then(function(db){
 //Step-2
 //Creating a schema for each entry of plans collection
 const plansSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     name: {
         type: String,
-        required: true,
+        required: [true, "kindly pass the name"],
+        unique: true,
+        // errors
+        maxlength: [40, "Your plan length is more than 40 characters"],
     },
-    ratings: {
+    duration: {
         type: Number,
-        required: true,
+        required: [true, "You Need to provide duration"]
     },
     price: {
         type: Number,
-        required: true
-    },
-    delivery: {
-        type: Boolean,
         required: true,
+        
     },
-    meals: {
+    ratingsAverage: {
         type: Number,
-        required: true,
     },
-    description: {
-        type: String,
-        required: true,
-    }
+    discount: {
+        type: Number,
+        validate: {
+            validator: function () {
+                return this.discount < this.price;
+            },
+            message: "Discount must be less than actual price",
+        },
+    },
 })
 
 //Step-3
 //Create a Model using mongoose
-const plansModel = mongoose.model("plansModel", plansSchema);
-
-module.exports = plansModel;
+const planModel = mongoose.model("planModel", plansSchema);
+module.exports = planModel;
 
 //Step-4
 //Inserting entries inside the model using mongoose

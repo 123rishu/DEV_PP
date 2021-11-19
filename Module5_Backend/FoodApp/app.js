@@ -1,6 +1,6 @@
 const express = require("express");
 const userModel = require("./models/userModel");
-const plansModel = require("./models/plansModel");
+const planModel = require("./models/plansModel");
 const cookieParser = require("cookie-parser");
 
 //server init
@@ -12,11 +12,11 @@ app.use(cookieParser());
 //Mounting in express
 const userRouter = require("./Routers/userRouter");
 const authRouter = require("./Routers/authRouter");
-const plansRouter = require("./Routers/planRouter");
+const planRouter = require("./Routers/planRouter");
 //  /api/user/:id
 app.use('/api/user', userRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/plans", plansRouter);
+app.use("/api/plan", planRouter);
 
 app.listen(8080, function () {
     console.log("server started");
