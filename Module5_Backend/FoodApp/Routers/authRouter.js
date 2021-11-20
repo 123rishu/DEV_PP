@@ -4,7 +4,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const {JWT_KEY} = require("../secrets2");
 const authRouter = express.Router();
-let emailSender = require("../externalServices/emailSender");
+let emailSender = require("../helpers/emailSender");
 authRouter
     .post("/signup", setCreatedAt, signupUser)
     .post("/login", loginUser)
