@@ -5,6 +5,12 @@ const userRouter = express.Router();
 const protectRoute = require("./authHelper");
 const factory = require("../helpers/factory");
 
+const createUser = factory.createElement(UserModel);
+const getUsers = factory.getElements(UserModel);
+const deleteUser = factory.deleteElement(UserModel);
+const updateUser = factory.updateElement(UserModel);
+const getUserById = factory.getElementById(UserModel);
+
 userRouter
     .route("/")
     .get(protectRoute, authorizeUser(["admin"]), getUsers)
@@ -17,11 +23,7 @@ userRouter
     .delete(protectRoute, authorizeUser(["admin"]), deleteUser)
 
 // findBYIdAndUpdate ->
-const createUser = factory.createElement(UserModel);
-const getUsers = factory.getElements(UserModel);
-const deleteUser = factory.deleteElement(UserModel);
-const updateUser = factory.updateElement(UserModel);
-const getUserById = factory.getElementById(UserModel);
+
 
 //---------------------------------------------------------------------------------------------//
 //USER'S METHODS

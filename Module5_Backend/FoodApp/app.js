@@ -13,17 +13,16 @@ app.use(cookieParser());
 const userRouter = require("./Routers/userRouter");
 const authRouter = require("./Routers/authRouter");
 const planRouter = require("./Routers/planRouter");
+const reviewRouter = require("./Routers/reviewRouter");
 //  /api/user/:id
 app.use('/api/user', userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/plan", planRouter);
+app.use("/api/review", reviewRouter);
 
 app.listen(8080, function () {
     console.log("server started");
 })
-
-
-
 
 
 

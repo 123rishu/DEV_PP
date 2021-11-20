@@ -7,6 +7,12 @@ const protectRoute = require("./authHelper");
 
 plansRouter.use(protectRoute);
 
+const createPlan = factory.createElement(PlanModel);
+const getPlans = factory.getElements(PlanModel);
+const deletePlan = factory.deleteElement(PlanModel);
+const updatePlan = factory.updateElement(PlanModel);
+const getPlanById = factory.getElementById(PlanModel);
+
 plansRouter
     .route("/")
     .get(getPlans)
@@ -19,12 +25,6 @@ plansRouter
 plansRouter
     .route("/top3plans")
     .get(getTop3Plans)
-
-const createPlan = factory.createElement(PlanModel);
-const getPlans = factory.getElements(PlanModel);
-const deletePlan = factory.deleteElement(PlanModel);
-const updatePlan = factory.updateElement(PlanModel);
-const getPlanById = factory.getElementById(PlanModel);
 
 //----------------------------------------------------------------------------------------------//
 //Plans Methods

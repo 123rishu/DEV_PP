@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
-const {DB_LINK} = require("../secrets2");
+const { DB_LINK } = require("../secrets2");
 const emailValidator = require("email-validator");
 
 //Create a model and add entries inside it using mongodb
 //Step-1
 //Forming a connection with database using Mongoose
-mongoose.connect(DB_LINK).then(function(db){
+mongoose.connect(DB_LINK).then(function (db) {
     console.log(db);
-}).catch(function (err){
+}).catch(function (err) {
     console.log("err", err);
 })
 
@@ -28,7 +28,7 @@ const plansSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true,
-        
+
     },
     ratingsAverage: {
         type: Number,
@@ -42,6 +42,11 @@ const plansSchema = new mongoose.Schema({
             message: "Discount must be less than actual price",
         },
     },
+    reviews: {
+        //   array of object id 
+        type: [mongoose.Schema.ObjectId],
+        ref: "reviewModel"
+    }
 })
 
 //Step-3
