@@ -7,24 +7,69 @@ const protectRoute = require("./authHelper");
 
 plansRouter.use(protectRoute);
 
-const createPlan = factory.createElement(PlanModel);
-const getPlans = factory.getElements(PlanModel);
-const deletePlan = factory.deleteElement(PlanModel);
-const updatePlan = factory.updateElement(PlanModel);
-const getPlanById = factory.getElementById(PlanModel);
+const createPlan = factory.createElement(plansModel);
+const getPlans = factory.getElements(plansModel);
+const deletePlan = factory.deleteElement(plansModel);
+const updatePlan = factory.updateElement(plansModel);
+const getPlanById = factory.getElementById(plansModel);
+plansRouter.route("/top3plans")
+    .get(getTop3Plans)
 
-plansRouter
-    .route("/")
-    .get(getPlans)
-    .post(createPlan)
+plansRouter.route("/sortByRating", getbestPlans);
+
 plansRouter
     .route("/:id")
     .get(getPlanById)
     .patch(updatePlan)
     .delete(deletePlan)
+// ****************************************************
 plansRouter
-    .route("/top3plans")
-    .get(getTop3Plans)
+    .route("/")
+    .get(getPlans)
+    .post(createPlan)
+
+async function getbestPlans(req, res) {
+    console.log("hello")
+    try {
+        let plans = await plansModel.find()
+            .sort("-averageRating").populate({
+                path: 'reviews',
+                select: "review"
+            })
+        console.log(plans);
+        res.status(200).json({
+            plans
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(200).json({
+            message: err.message
+        })
+    }
+}
+
+async function getTop3Plans(req, res) {
+    try {
+        console.log("hello")
+        let plans = await plansModel.find()
+            .sort("-averageRating")
+            .limit(3)
+            .populate({
+                path: 'reviews',
+                select: "review"
+            })
+
+        console.log(plans);
+        res.status(200).json({
+            plans
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(200).json({
+            message: err.message
+        })
+    }
+}
 
 //----------------------------------------------------------------------------------------------//
 //Plans Methods

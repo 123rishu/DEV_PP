@@ -1,29 +1,29 @@
 const mongoose = require("mongoose");
-const {DB_LINK} = require("../secrets2");
-const emailValidator = require("email-validator");
+const emailValidator = require("email-validator")
+let { DB_LINK } = require("../secrets");
+// link
+// connnection form 
+mongoose.connect(DB_LINK, {
+    useNewUrlParser: true,
 
-//Create a model and add entries inside it using mongodb
-//Step-1
-//Forming a connection with database using Mongoose
-mongoose.connect(DB_LINK).then(function(db){
-    console.log("Connected to Database");
-    console.log(db);
-}).catch(function (err){
+    useUnifiedTopology: true,
+}).then(function (db) {
+    // console.log(db);
+    console.log("connected to db")
+}).catch(function (err) {
     console.log("err", err);
 })
-
-//Step-2
-//Create a schema for each entry of users collection
+// syntax 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, "kindly enter the name"],
     },
     email: {
         type: String,
         required: true,
         unique: true,
-        validate: function(){
+        validate: function () {
             return emailValidator.validate(this.email);
         }
     },
@@ -38,42 +38,35 @@ const userSchema = new mongoose.Schema({
     confirmPassword: {
         type: String,
         minlength: 7,
-        validate: function(){
-            return this.password == this.confirmPassword
-        },
+        validate:
+            function () {
+                return this.password == this.confirmPassword
+            },
         required: true
     },
     createdAt: Date,
-    token : String,
+    token: String,
+
     role: {
         type: String,
         enum: ["admin", "user", "manager"],
         default: "user"
-    }
+    },
+    bookings: {
+        //   array of object id 
+        type: [mongoose.Schema.ObjectId],
+        ref: "bookingModel"
+    },
 })
-
-//pre() is a middleware/hook(mongoose) jo ek nayi entry db me
-//save se bilkul pehle chalta hai
-userSchema.pre("save", function(){
-    // database me confirm password save nahi hoga
+// order matters 
+// middleware 
+userSchema.pre("save", function () {
+    // db confirm password will not be saved
+    console.log("Hello");
     this.confirmPassword = undefined;
 })
 
-//document method
-//userSchema se created saare objects ke pass ye function available hoga
-userSchema.methods.resetHandler = function(password, confirmPassword){
-    this.password = password;
-    this.confirmPassword = confirmPassword;
-}
-
-//Step-3
-//Create a Model using mongoose
 const userModel = mongoose.model("userModel", userSchema);
 
-//Step-4
-//Inserting entries inside the model using mongoose
-// (async function createUser(){
-   // let user = await userModel.create(userObj);
-// })();
 
-module.exports = userModel;
+module.exports = userModel
