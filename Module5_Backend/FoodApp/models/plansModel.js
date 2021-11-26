@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const emailValidator = require("email-validator")
-let { DB_LINK } = require("../secrets");
+let { DB_LINK } = require("../secrets2");
 // link
 // connnection form 
 mongoose.connect(DB_LINK, {

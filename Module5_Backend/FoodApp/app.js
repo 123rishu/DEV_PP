@@ -2,19 +2,48 @@ const express = require("express");
 const userModel = require("./models/userModel");
 const planModel = require("./models/plansModel");
 const cookieParser = require("cookie-parser");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
 
 //server init
 const app = express();
 
-app.use(express.static('public'));
+app.use(rateLimit({
+    max: 100,
+    windowMs: 15*60*1000,
+    message:
+        "Too many accounts created from this IP, Please try again after an hour"
+}))
+//to make sure extra paramaters will not be there inside query
+app.use(hpp({
+    whiteList: [
+        'select',
+        'page',
+        'sort',
+        'myquery'
+    ]
+}))
+//to set http headers
+app.use(helmet());
+
 app.use(express.json());
+//to prevent xss attack - cross site scripting
+app.use(xss());
+//to prevent from mongodb injections--mongodb query sanitize
+app.use(mongoSanitize());
+
+app.use(express.static('public'));
+
 app.use(cookieParser());
 //Mounting in express
 const userRouter = require("./Routers/userRouter");
 const authRouter = require("./Routers/authRouter");
 const planRouter = require("./Routers/planRouter");
 const reviewRouter = require("./Routers/reviewRouter");
-const bookingRouter = require('./Router/bookingRouter');
+const bookingRouter = require('./Routers/bookingRouter');
 //  /api/user/:id
 app.use('/api/user', userRouter);
 app.use("/api/auth", authRouter);

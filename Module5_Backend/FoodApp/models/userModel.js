@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const emailValidator = require("email-validator")
-let { DB_LINK } = require("../secrets");
+const emailValidator = require("email-validator");
+const bcrypt = require("bcrypt");
+let { DB_LINK } = require("../secrets2");
 // link
 // connnection form 
 mongoose.connect(DB_LINK, {
@@ -60,11 +61,22 @@ const userSchema = new mongoose.Schema({
 })
 // order matters 
 // middleware 
-userSchema.pre("save", function () {
+userSchema.pre("save",async function () {
     // db confirm password will not be saved
-    console.log("Hello");
+    const salt = await bcrypt.genSalt(10);
+    //password gets converted into some other text
+    this.password = await bcrypt.hash(this.password, salt);
     this.confirmPassword = undefined;
 })
+// document method
+userSchema.methods.resetHandler =async function (password, confirmPassword) {
+    const salt = await bcrypt.genSalt(10);
+    // password convert text
+    this.password = await bcrypt.hash(this.password, salt);
+
+    this.confirmPassword = confirmPassword;
+    this.token = undefined;
+}
 
 const userModel = mongoose.model("userModel", userSchema);
 

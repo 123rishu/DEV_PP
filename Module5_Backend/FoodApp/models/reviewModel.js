@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-let { DB_LINK } = require("../secrets");
+let { DB_LINK } = require("../secrets2");
 mongoose.connect(DB_LINK, {
     useNewUrlParser: true,
 

@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel");
 const mongoose = require("mongoose");
 const express = require("express");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {JWT_KEY} = require("../secrets2");
 const authRouter = express.Router();
@@ -64,7 +65,11 @@ async function loginUser(req, res) {
             //ye hum db se object nikal ke layenge, posted object ke email nam ke according
             let user = await userModel.findOne({ "email": loginUserObject.email });
             if (user) {
-                if (user.password == loginUserObject.password) {
+                //password
+
+                let areEqual = await bcrypt.compare(password, user.password);
+
+                if (areEqual) {
                     //After validation, we send cookie in response for further validation
                     //httpOnly ko true karne se edit nahi ho payegi cookie
                     //Cookie ke liye ek unique token bhi create karna padega
