@@ -22,7 +22,7 @@ const Header = (props) => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       if (currUser != null) {
-        props.setMovies(searchedMovie);
+        props.setMovies(searchedMovie);  
       }
       setSearchedMovie("");
     }
